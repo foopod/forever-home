@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from "react"
 
 type GameContextType = {
-    chapters: {title:string, content:string}[],
-    setBookmark: (chapterIndex: number) => void,
-    currentChapter: number | null;
+    pet: string | null
+    owner: string | null
+    setPet: (pet: string) => void
+    setOwner: (owner: string) => void
 }
 export const GameContext = React.createContext<GameContextType>({
-    chapters: [], 
-    setBookmark: () => {},
-    currentChapter: null
+    pet: "", 
+    owner: "", 
+    setPet: () => {},
+    setOwner: () => {}
 })
 
-export const GameContextProvider = ({ children }: { children: React.ReactNode }, chapters: {title:string, content:string}[]) => {
-    const [bookmark, setBookmarkState] = useState<number | null>(null);
+export const GameContextProvider = ({ children }: { children: React.ReactNode }) => {
+    const [pet, setPetState] = useState<string | null>(null);
+    const [owner, setOwnerState] = useState<string | null>(null);
 
-    const setBookmark = (chapterIndex: number) => {
-        setBookmarkState(chapterIndex);
-        localStorage.setItem('bookmark', JSON.stringify(chapterIndex));
+    const setPet = (pet : string) => {
+        setPetState(pet);
+        localStorage.setItem('pet', JSON.stringify(pet));
+    }
+
+    const setOwner = (owner : string) => {
+        setOwnerState(owner);
+        localStorage.setItem('owner', JSON.stringify(owner));
     }
     
     useEffect(() => {
-        const bookmark = localStorage.getItem('bookmark')
-        if (Number(bookmark)){
-            setBookmarkState(Number(bookmark))
+        const pet = localStorage.getItem('pet')
+        const owner = localStorage.getItem('owner')
+        if (pet && owner){
+            setPetState(pet)
+            setOwnerState(owner)
         } else {
-            setBookmarkState(0)
+            // Join
         }
     }, [])
 
     return (
-        <GameContext.Provider value={{chapters:chapters, setBookmark, currentChapter:bookmark}}>
+        <GameContext.Provider value={{pet:pet, owner: owner, setPet:setPet, setOwner: setOwner}}>
           {children}
         </GameContext.Provider>
       );
