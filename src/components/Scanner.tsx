@@ -17,10 +17,8 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, setResult }) => {
         setResult(result?.data);
         setIsActive(false)
     };
-
-    // Fail
+    
     const onScanFail = (err: string | Error) => {
-        // 🖨 Print the "err" to browser console.
         console.log(err);
     };
 
