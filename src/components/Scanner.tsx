@@ -1,6 +1,5 @@
 import QrScanner from 'qr-scanner';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import './Scanner.css'
 import { FaTimes } from 'react-icons/fa';
 
 
@@ -53,9 +52,9 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, setResult }) => {
 
     return <div>
        {isActive && 
-       <div className='qr-video'>
+       <div className='w-full h-full bg-slate-950 absolute top-0 left-0 flex justify-center'>
           <video ref={videoEl}></video>
-          <div className='exit' onClick={() =>  {setIsActive(false)}}>
+          <div className='absolute top-0 right-0' onClick={() =>  {setIsActive(false)}}>
             <FaTimes color='white' size={"4em"}/>
           </div>
         </div>  

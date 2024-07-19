@@ -19,7 +19,7 @@ function App() {
 
   return (
     <main>
-      <h1>Forever Home</h1>
+      <h1 className='text-3xl font-bold underline'>Forever Home</h1>
       {scannerOpen &&
         <>
           <Scanner isActive={scannerOpen} setIsActive={setScannerOpen} setResult={setScanResult}/>
@@ -28,7 +28,7 @@ function App() {
       }
       {! scannerOpen &&
         <>
-          <button onClick={toggleScan}>Scan</button>
+          <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md'>Scan</button>
           <LayeredImage cat={cat_image} />
           <p>Name : {cat.name}</p>
           <p>Result: {scanResult}</p>
