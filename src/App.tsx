@@ -4,6 +4,7 @@ import LayeredImage from './components/LayeredImage'
 import Scanner from './components/Scanner'
 import { generateCat } from './data/attributes'
 import { CatImage, generateCatImage } from './data/layers'
+import Join from './components/Join'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <main>
+      <Join />
       <h1 className='text-3xl font-bold underline'>Forever Home</h1>
       {scannerOpen &&
         <>
