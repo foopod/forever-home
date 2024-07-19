@@ -8,6 +8,7 @@ import { CatImage, generateCatImage } from './data/layers'
 function App() {
 
   const [scannerOpen, setScannerOpen] = useState(false)
+  const [scanResult, setScanResult] = useState('')
 
   const cat_image: CatImage = generateCatImage()
   const cat = generateCat()
@@ -21,7 +22,7 @@ function App() {
       <h1>Forever Home</h1>
       {scannerOpen &&
         <>
-          <Scanner/>
+          <Scanner isActive={scannerOpen} setIsActive={setScannerOpen} setResult={setScanResult}/>
         </>
         
       }
@@ -30,6 +31,7 @@ function App() {
           <button onClick={toggleScan}>Scan</button>
           <LayeredImage cat={cat_image} />
           <p>Name : {cat.name}</p>
+          <p>Result: {scanResult}</p>
         </>
       }
     </main>

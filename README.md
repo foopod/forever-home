@@ -10,8 +10,8 @@
 - *Initiate Trade*
   - User clicks trade button
   - Given two options - Scan or View Code
-    - Scan opens full screen scanner
-    - View Code opens full screen code
+    - Scan opens full-screen scanner
+    - View Code opens full-screen code
   - On scan call websocket to trade
 
 
