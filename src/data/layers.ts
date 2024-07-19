@@ -1,24 +1,22 @@
-const backgrounds =  ['blue', 'red'] as const
-const bodies = ["brown", "tan"] as const
-const eyes = ["black", "gold"] as const
-const mouths = ["whiskers", "open"] as const
-const noses = ["bland", "brown"] as const
+import layers from "./layers.json"
 
 export interface CatImage {
-    background : typeof backgrounds[number],
-    body : typeof bodies[number],
-    eyes : typeof eyes[number],
-    mouth : typeof mouths[number],
-    nose : typeof noses[number],
+    base : typeof layers.bases[number],
+    eyes : typeof layers.eyes[number],
+    mouth : typeof layers.mouths[number],
+    nose : typeof layers.noses[number],
+    ears : typeof layers.noses[number],
+    accessory: typeof layers.accessories[number]
 } 
 
 export const generateCatImage = () : CatImage => {
     const random_cat: CatImage = {
-        background: backgrounds[backgrounds.length * Math.random() | 0],
-        body: bodies[bodies.length * Math.random() | 0],
-        eyes: eyes[eyes.length * Math.random() | 0],
-        mouth: mouths[mouths.length * Math.random() | 0],
-        nose: noses[noses.length * Math.random() | 0]
+        base: layers.bases[layers.bases.length * Math.random() | 0],
+        eyes: layers.eyes[layers.eyes.length * Math.random() | 0],
+        mouth: layers.mouths[layers.mouths.length * Math.random() | 0],
+        nose: layers.noses[layers.noses.length * Math.random() | 0],
+        ears: layers.ears[layers.ears.length * Math.random() | 0],
+        accessory: layers.accessories[layers.accessories.length * Math.random() | 0],
     }
     return random_cat
 }
