@@ -29,7 +29,7 @@ function App() {
       {! scannerOpen &&
         <>
           <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md'>Scan</button>
-          <LayeredImage cat={cat_image} />
+          <LayeredImage pet={cat_image} />
           <p>Result: {scanResult}</p>
         </>
       }
