@@ -1,6 +1,6 @@
 import layers from "./layers.json"
 
-export interface CatImage {
+export interface PetImage {
     base : typeof layers.bases[number],
     eyes : typeof layers.eyes[number],
     mouth : typeof layers.mouths[number],
@@ -9,8 +9,8 @@ export interface CatImage {
     accessory: typeof layers.accessories[number]
 } 
 
-export const generateCatImage = () : CatImage => {
-    const random_cat: CatImage = {
+export const generatePetImage = () : PetImage => {
+    const random_cat: PetImage = {
         base: layers.bases[layers.bases.length * Math.random() | 0],
         eyes: layers.eyes[layers.eyes.length * Math.random() | 0],
         mouth: layers.mouths[layers.mouths.length * Math.random() | 0],

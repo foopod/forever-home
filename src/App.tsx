@@ -2,8 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import LayeredImage from './components/LayeredImage'
 import Scanner from './components/Scanner'
-import { generateCat } from './data/attributes'
-import { CatImage, generateCatImage } from './data/layers'
+import { PetImage, generatePetImage } from './data/layers'
 import Join from './components/Join'
 
 function App() {
@@ -11,8 +10,7 @@ function App() {
   const [scannerOpen, setScannerOpen] = useState(false)
   const [scanResult, setScanResult] = useState('')
 
-  const cat_image: CatImage = generateCatImage()
-  const cat = generateCat()
+  const cat_image: PetImage = generatePetImage()
 
   const toggleScan = () => {
     setScannerOpen(prev => !prev)
@@ -32,7 +30,6 @@ function App() {
         <>
           <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md'>Scan</button>
           <LayeredImage cat={cat_image} />
-          <p>Name : {cat.name}</p>
           <p>Result: {scanResult}</p>
         </>
       }
