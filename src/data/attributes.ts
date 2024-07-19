@@ -2,13 +2,14 @@ import { CatImage } from "./layers"
 import { cat_names } from "./names"
 
 export const attriubutes_map_pets = {
+    age: ["Young", "Old"],
     activeness: ["Sporty", "Lazy"],
-    cuddly: ["Yes", "No"],
+    cuddly: ["Cuddly", "Abrasive"],
     clingy: ["Chill", "Needy"],
     size: ["Big", "Small"],
-    age: ["Young", "Old"],
-    nocturnal: ["Yes", "No"],
-    nice: ["Kind", "Apathetic"]
+    nocturnal: ["Nocturnal", "Diurnal"],
+    nice: ["Kind", "Apathetic"],
+    kids: ["Good with Kids", "Bad with Kids"]
 }
 
 interface Cat{
