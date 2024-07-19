@@ -1,10 +1,43 @@
 package main
 
 import (
+	"database/sql"
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+
+	_ "github.com/mattn/go-sqlite3"
 )
+
+const (
+	DB_FILE = "db.sqlite"
+)
+
+var db *sql.DB
+
+func init() {
+	var err error
+	db, err = sql.Open("sqlite3", DB_FILE)
+	if err != nil {
+		panic(err)
+	}
+	defer db.Close()
+
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS players (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		pet_id INTEGER,
+		attributes JSONB);
+		CREATE TABLE IF NOT EXISTS pets (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		attributes JSONB);
+	`)
+	if err != nil {
+		panic(err)
+	}
+	log.Println("Database initialized.")
+}
 
 func main() {
 
