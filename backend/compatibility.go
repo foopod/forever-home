@@ -22,5 +22,5 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 			similarity *= strutil.Similarity(playerValue, petValue, method)
 		}
 	}
-	return math.Cbrt(similarity)
+	return math.Sqrt(similarity)
 }

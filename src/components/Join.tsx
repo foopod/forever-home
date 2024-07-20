@@ -25,14 +25,14 @@ const Join = () => {
                 <div className="flex mx-5">
                     <LayeredImage attributes={{
                         accessory: "accessories5",
-                        base: "base3",
+                        base: "base3a",
                         eyes: "eyes1",
                         mouth: "mouth1",
                         species: "cat"
                     }}/>
                     <LayeredImage attributes={{
                         accessory: "accessories5",
-                        base: "base3",
+                        base: "base3a",
                         eyes: "eyes1",
                         mouth: "mouth1",
                         species: "human"
