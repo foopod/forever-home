@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
 import LayeredImage from './components/LayeredImage'
 import { PetImage, generatePetImage } from './data/layers'
@@ -8,6 +9,31 @@ import Trade from './components/Trade'
 function App() {
   const [tradeOpen, setTradeOpen] = useState(false)
   const cat_image: PetImage = generatePetImage()
+  const WS_URL = "http://127.0.0.1:3000/ws"
+
+  const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
+    WS_URL,
+    {
+      share: false,
+      shouldReconnect: () => true,
+    },
+  )
+  // useEffect(() => {
+  //   console.log("Connection state changed")
+  //   if (readyState === ReadyState.OPEN) {
+  //     sendJsonMessage({
+  //       event: "subscribe",
+  //       data: {
+  //         channel: "general-chatroom",
+  //       },
+  //     })
+  //   }
+  // }, [readyState])
+
+  // Run when a new WebSocket message is received (lastJsonMessage)
+  // useEffect(() => {
+  //   console.log(`Got a new message: ${lastJsonMessage}`)
+  // }, [lastJsonMessage])
 
   return (
     <main className='font-roboto'>
