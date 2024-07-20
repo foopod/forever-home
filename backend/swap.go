@@ -62,6 +62,8 @@ func HandleSwap(c *fiber.Ctx) error {
 		// Don't do anything else because who cares
 	}
 
+	log.Println("Swapped", myID, "and", theirID)
+
 	return HandleGetState(c)
 	//return c.SendString("OK")
 }

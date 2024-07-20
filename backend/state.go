@@ -23,13 +23,7 @@ func HandleGetState(c *fiber.Ctx) error {
 	response.Player = *p
 	response.UserID = p.ID
 
-	// pet, err := GetPetByID(p.PetID)
-	// if err != nil {
-	// 	log.Println("Error getting pet by id", err)
-	// 	return err
-	// }
-
-	// response.Pet = *pet
+	log.Println("Got state for player", response.Player.ID)
 
 	return c.JSON(response)
 }

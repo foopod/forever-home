@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"math/rand/v2"
 
 	"github.com/foopod/forever-home/backend/attributes"
@@ -55,6 +56,8 @@ func HandleJoin(c *fiber.Ctx) error {
 	if err != nil {
 		return err
 	}
+
+	log.Println("Player joined", player.ID)
 
 	return c.JSON(response)
 }

@@ -1,9 +1,5 @@
 package main
 
-import (
-	"log"
-)
-
 func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 	//method := metrics.NewJaccard()
 	similarity := 0.0
@@ -14,7 +10,7 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 			continue
 		}
 		petValue, exists := pet.Attributes[key]
-		log.Println("Key:", key, "Value:", playerValue, "Pet Value:", petValue)
+		//log.Println("Key:", key, "Value:", playerValue, "Pet Value:", petValue)
 		if !exists {
 			similarity += 0
 		} else {
@@ -32,7 +28,7 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 				}
 			}
 		}
-		log.Println("Similarity updated to", similarity)
+		//log.Println("Similarity updated to", similarity)
 
 	}
 	return similarity
