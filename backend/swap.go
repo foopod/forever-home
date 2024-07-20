@@ -52,5 +52,5 @@ func HandleSwap(c *fiber.Ctx) error {
 
 	BroadcastToPlayers([]byte("refresh"))
 
-	return c.SendString("Swap the pets!")
+	return c.SendString("OK")
 }
