@@ -25,6 +25,16 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
 });
 
+document.body.addEventListener("error", (event) => {
+  if (!event.target) return;
+
+  if (event.target.tagName === 'IMG') {
+    Sentry.captureMessage(`Failed to load image: ${event.target.src}`, "warning");
+  } else if (event.target.tagName === 'LINK') {
+    Sentry.captureMessage(`Failed to load css: ${event.target.href}`, "warning");
+  }
+}, true);
+
 
 const router = createBrowserRouter([
   {
