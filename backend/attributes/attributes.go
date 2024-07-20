@@ -19,6 +19,31 @@ var ATTRIBUTE_NAMES []string = []string{
 	"accessories",
 }
 
+var HUMAN_NAMES []string = []string{
+	"Alex", "Avery", "Blake", "Cameron", "Casey", "Charlie", "Dakota", "Drew", "Emerson", "Finley",
+	"Harper", "Hayden", "Jamie", "Jordan", "Kai", "Kendall", "Lane", "Logan", "Morgan", "Parker",
+	"Quinn", "Reese", "Riley", "Robin", "Rowan", "Ryan", "Sage", "Sawyer", "Skyler", "Taylor",
+	"Terry", "Tracy", "Bailey", "Billie", "Bobby", "Carter", "Chris", "Corey", "Dana", "Devin",
+	"Elliot", "Frankie", "Glenn", "Jessie", "Joey", "Jules", "Kelly", "Kerry", "Leslie", "Lindsay",
+	"Lynn", "Marion", "Micah", "Montana", "Noel", "Nico", "Pat", "Payton", "Phoenix", "Quincy",
+	"Ray", "Reagan", "Remy", "Rene", "River", "Rory", "Sam", "Sasha", "Shannon", "Sky",
+	"Spencer", "Stevie", "Storm", "Sydney", "Teagan", "Toby", "Tyler", "Val", "Winter", "Addison",
+	"Arden", "Aspen", "Ash", "Brook", "Carmen", "Dale", "Ellis", "Flynn", "Gray", "Indigo",
+	"Justice", "Lane", "Linden", "Merritt", "Perry", "Rain", "Shiloh", "Sterling", "Tatum", "West",
+}
+
+var CAT_NAMES []string = []string{
+	"Whiskerino", "Mittens", "Shadowpaws", "Luna", "Simba", "Tigress", "Mochi", "Sable", "Pixel", "Nimbus",
+    "Jinx", "Cinnamon", "Gizmo", "Pepper", "Zephyr", "Sushi", "Echo", "Waffles", "Mystique", "Pudding", "Blaze", 
+    "Neko", "Karma", "Basil", "Zelda", "Ash", "Nebula", "Figaro", "Lyric", "Sprout", "Clover", "Harley", "Frost",
+    "Coco", "Raven", "Pippin", "Indigo", "Tango", "Buttercup", "Oreo", "Cosmo", "Saffron", "Doodle", "Mimosa",
+    "Jasper", "Quasar", "Maple", "Galaxy", "Snickers", "Bubbles", "Phoenix", "Fudge", "Rascal", "Dusk", "Pixie",
+    "Taffy", "Echo", "Jewel", "Skittles", "Mango", "Topaz", "Pumpkin", "Cobalt", "Velvet", "Frostbite", "Marble",
+    "Sable", "Zenith", "Opal", "Nutmeg", "Ripple", "Slate", "Truffle", "Breeze", "Mystery", "Sorrel", "Nugget",
+    "Sterling", "Flicker", "Fawn", "Cloud", "Ziggy", "Peaches", "Vortex", "Roo", "Galaxy", "Whisper", "Dynamo",
+    "Sirius", "Lynx", "Jubilee", "Moss", "Pudding", "Starlight", "Sable", "Frost", "Glitter", "Rune",
+}
+
 var ALL_ATTRIBUTES = CollectAttributes(getEnv("IMAGE_DIR", ATTRIBUTE_BASE_DIR))
 
 func CollectAttributes(baseDir string) map[string]map[string][]string {
@@ -109,14 +134,18 @@ func CollectAttributesForSpecies(baseDir string, attributeNames []string) map[st
 
 func Generate(species string) map[string]string {
 	attr := ALL_ATTRIBUTES["cat"]
-	if species == "dog" {
-		attr = ALL_ATTRIBUTES["dog"]
-	} else if species == "human" {
+	if species == "human" {
 		attr = ALL_ATTRIBUTES["human"]
+	}
+
+	name := CAT_NAMES[rand.Intn(len(CAT_NAMES))]
+	if species == "human" {
+		name = HUMAN_NAMES[rand.Intn(len(HUMAN_NAMES))]
 	}
 
 	return map[string]string{
 		"species":   species,
+		"name": name,
 		"base":      attr["base"][rand.Intn(len(attr["base"]))],
 		"eyes":      attr["eyes"][rand.Intn(len(attr["eyes"]))],
 		"mouth":     attr["mouth"][rand.Intn(len(attr["mouth"]))],

@@ -25,6 +25,7 @@ function App() {
 
   useEffect(() => {
     console.log("Connection state changed")
+    console.log(currentState)
     if (readyState === ReadyState.OPEN) {
       sendJsonMessage({
         event: "subscribe",
@@ -53,25 +54,20 @@ function App() {
           <Trade isOpen={tradeOpen} setIsOpen={setTradeOpen}/>
           {! tradeOpen &&
             <div className='flex flex-col items-center'>
-              <div className='m-3 flex space-x-8'>
-                <Score score={currentState.player.pet_compatibility} />
+              <div className='m-3 flex space-arzzound'>
+                <span className='bg-green-500 text-white px-4 py-2 rounded-md mx-2'>78% Match</span>
                 <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Trade Pets</button>
               </div>
               <div className='m-2'>
-                <p>Margaret</p>
+                <p>{currentState.player.attributes["name"]}</p>
                 {/* <img src="https://placehold.co/400"/> */}
                 <LayeredImage attributes={currentState.player.attributes} />
               </div>
               <div className='m-2'>
-                <p>Bubbles</p>
+                <p>{currentState.player.pet.attributes["name"]}</p>
                 {/* <img src="https://placehold.co/400"/> */}
                 <LayeredImage attributes={currentState.player.pet.attributes} />
               </div>
-              <div>
-                <code>DEBUG:
-                {JSON.stringify(currentState)}</code>
-              </div>
-
             </div>
           }
         </>
