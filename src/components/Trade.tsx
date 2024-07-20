@@ -4,6 +4,7 @@ import QRCode from "react-qr-code"
 import Scanner from "./Scanner"
 import { Audio } from "react-loader-spinner"
 import { GameContext } from "../context/GameContext"
+import { API_ENDPOINT } from '../environment'
 
 interface Props {
     isOpen: boolean
@@ -24,7 +25,7 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
         setLoading(true)
 
         // call trade api
-        const response = await fetch(`http://localhost:8080/api/swap/${currentState.player.id}/${result}`, {method: "POST"})
+        const response = await fetch(`${API_ENDPOINT}/api/swap/${currentState.player.id}/${result}`, {method: "POST"})
         const json = await response.json()
         setCurrentState(json)
 
@@ -33,12 +34,12 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
         setScannerOpen(false)
         setIsOpen(false)
     }
-    
+
     useEffect(() => {
         const close = () => { setScannerOpen(false)}
         window.history.pushState({}, '', '/')
         window.addEventListener("popstate", close)
-  
+
         return (window.removeEventListener("popstate", close))
       }, [])
 

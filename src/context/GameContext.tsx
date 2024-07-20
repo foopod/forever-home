@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { API_ENDPOINT } from '../environment'
 
 type GameContextType = {
     currentState: any | null
@@ -21,18 +22,18 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
 
     const refreshState = async () => {
         const id = currentState.player.id
-        const response = await fetch(`http://localhost:8080/api/state/${id}`)
+        const response = await fetch(`${API_ENDPOINT}/api/state/${id}`)
         const json = await response.json()
         updateState(json)
     }
 
     const joinGame = async () => {
-        const response = await fetch('http://localhost:8080/api/join')
+        const response = await fetch(`${API_ENDPOINT}/api/join`)
         const json = await response.json()
         updateState(json)
         return json
     }
-    
+
     useEffect(() => {
         const state = localStorage.getItem('state')
         if (state){

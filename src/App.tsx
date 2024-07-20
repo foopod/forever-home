@@ -6,13 +6,14 @@ import Join from './components/Join'
 import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
 import Score from './components/dashboard/Score'
+import { API_ENDPOINT } from './environment'
 
 function App() {
   const [joinOpen, setJoinOpen] = useState(true)
   const [tradeOpen, setTradeOpen] = useState(false)
   const { currentState, refreshState } = useContext(GameContext)
 
-  const WS_URL = `http://localhost:8080/ws/${currentState?.player?.id}`
+  const WS_URL = `${API_ENDPOINT}/ws/${currentState?.player?.id}`
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
     WS_URL,
