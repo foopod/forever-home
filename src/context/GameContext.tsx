@@ -3,52 +3,48 @@ import { API_ENDPOINT, isProduction } from '../environment'
 
 type GameContextType = {
     currentState: any | null
+    userID: number | null
     setCurrentState: (state: any) => void
-    refreshState: () => void
+    refreshState: (userID: number) => void
+    joinGame: () => void
 }
 export const GameContext = React.createContext<GameContextType>({
+    userID: null,
     currentState: {},
     setCurrentState: () => {},
-    refreshState: () => {}
+    refreshState: () => {},
+    joinGame: () => {}
 })
 
 export const GameContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [currentState, setCurrentState] = useState<any | null>(null);
+    const [userID, setUserID] = useState<number | null>(null)
 
-    const updateState = (state : any) => {
-        setCurrentState(state);
-        if (isProduction()) {
-            localStorage.setItem('state', JSON.stringify(state));
-        } else {
-            console.log("Running in dev, not saving state to local storage")
-        }
-    }
-
-    const refreshState = async () => {
-        const id = currentState.player.id
+    const refreshState = async (id: number) => {
         const response = await fetch(`${API_ENDPOINT}/api/state/${id}`)
         const json = await response.json()
-        updateState(json)
+        setCurrentState(json)
     }
 
     const joinGame = async () => {
         const response = await fetch(`${API_ENDPOINT}/api/join`)
         const json = await response.json()
-        updateState(json)
+        setCurrentState(json)
+        setUserID(json.player.id)
+        localStorage.setItem('userID', JSON.stringify(json.player.id));
         return json
     }
 
     useEffect(() => {
-        const state = localStorage.getItem('state')
-        if (state){
-            setCurrentState(JSON.parse(state))
-        } else {
-            joinGame()
+        const userID = localStorage.getItem('userID')
+        if (userID){
+            setUserID(JSON.parse(userID))
+            refreshState(JSON.parse(userID))
         }
     }, [])
 
     return (
-        <GameContext.Provider value={{currentState: currentState, setCurrentState:updateState, refreshState:refreshState}}>
+        <GameContext.Provider value={{currentState, setCurrentState, refreshState, userID, joinGame}}>
           {children}
         </GameContext.Provider>
       );

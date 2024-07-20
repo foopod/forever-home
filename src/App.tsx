@@ -9,9 +9,8 @@ import Score from './components/dashboard/Score'
 import { API_ENDPOINT } from './environment'
 
 function App() {
-  const [joinOpen, setJoinOpen] = useState(true)
   const [tradeOpen, setTradeOpen] = useState(false)
-  const { currentState, refreshState } = useContext(GameContext)
+  const { userID, currentState, refreshState } = useContext(GameContext)
 
   const WS_URL = `${API_ENDPOINT}/ws/${currentState?.player?.id}`
 
@@ -38,17 +37,19 @@ function App() {
 
   useEffect(() => {
     console.log("Recieved Message")
-    if(currentState){
-      refreshState()
+    if(currentState && userID){
+      refreshState(userID)
       setTradeOpen(false)
     }
   }, [lastJsonMessage])
 
+  if (!userID || !currentState){
+    return <Join />
+  }
+
   return (
     <main className='font-roboto'>
-      <Join isOpen={joinOpen} setIsOpen={setJoinOpen}/>
-
-      {!joinOpen &&
+      {currentState &&
         <>
           <h1 className='mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl font-exo'>Forever Home</h1>
           <Trade isOpen={tradeOpen} setIsOpen={setTradeOpen}/>
