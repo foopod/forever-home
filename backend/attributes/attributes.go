@@ -30,7 +30,7 @@ func CollectAttributes(baseDir string, attributeNames []string) map[string][]str
 		// Check the attribute folder exists
 		dir, err := os.Open(attrDir)
 		if err != nil {
-			fmt.Printf("error while opening attribute dir %s: %s", attrDir, err)
+			fmt.Printf("error while opening attribute dir %s: %s\n", attrDir, err)
 			continue
 		}
 
@@ -41,14 +41,14 @@ func CollectAttributes(baseDir string, attributeNames []string) map[string][]str
 			fmt.Printf("attribute path %s does not exist", attrDir)
 			continue
 		} else if err != nil {
-			fmt.Printf("error while getting info for attribute dir %s: %s", attrDir, err)
+			fmt.Printf("error while getting info for attribute dir %s: %s\n", attrDir, err)
 			continue
 		}
 
 		// Get attributes inside directory
 		files, err := dir.Readdir(-1)
 		if err != nil {
-			fmt.Printf("error while reading attribute dir %s: %s", attrDir, err)
+			fmt.Printf("error while reading attribute dir %s: %s\n", attrDir, err)
 			continue
 		}
 
@@ -56,7 +56,7 @@ func CollectAttributes(baseDir string, attributeNames []string) map[string][]str
 			filename := f.Name()
 			ext := filepath.Ext(filename)
 			if ext != ".png" {
-				fmt.Printf("ignoring non-png %s in %s", filename, attrDir)
+				fmt.Printf("ignoring non-png %s in %s\n", filename, attrDir)
 				continue
 			}
 			outputAttributes[attributeName] = append(outputAttributes[attributeName], strings.TrimSuffix(filename, ext))
