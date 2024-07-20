@@ -19,18 +19,17 @@ type JoinResponse struct {
 
 func HandleJoin(c *fiber.Ctx) error {
 	player := Player{
-		ID: rand.IntN(MAX_ID),
-		Pet: Pet{
-			ID:         rand.IntN(MAX_ID),
-			Attributes: attributes.Generate("cat"),
-		},
+		ID:         rand.IntN(MAX_ID),
 		Attributes: attributes.Generate("human"),
 	}
 
-	// pet := Pet{
-	// 	ID:         player.PetID,
-	// 	Attributes: attributes.Generate(),
-	// }
+	pet, err := GeneratePetForPlayer(player)
+	if err != nil {
+		return err
+	}
+	player.Pet = *pet
+
+	player.PetCompatibility = ComputePlayerPetCompatibility(&player, &player.Pet)
 
 	response := JoinResponse{
 		UserID: player.ID,

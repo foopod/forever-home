@@ -3,6 +3,13 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"math/rand"
+
+	"github.com/foopod/forever-home/backend/attributes"
+)
+
+const (
+	MAXIMUM_COMPATIBILITY = 0.41
 )
 
 type Pet struct {
@@ -30,4 +37,16 @@ func GetPetByID(id int) (*Pet, error) {
 
 	log.Printf("Pet found %d, %#v", id, p)
 	return &p, nil
+}
+
+func GeneratePetForPlayer(player Player) (*Pet, error) {
+	//var out Pet
+
+	log.Println("Generating pet")
+	pet := Pet{
+		ID:         rand.Intn(MAX_ID),
+		Attributes: attributes.Generate("cat"),
+	}
+
+	return &pet, nil
 }
