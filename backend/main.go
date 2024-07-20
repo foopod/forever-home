@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -20,7 +21,7 @@ var db *sql.DB
 
 func init() {
 	var err error
-	db, err = sql.Open("sqlite3", DB_FILE)
+	db, err = sql.Open("sqlite3", getEnv("DB_FILE", DB_FILE))
 	if err != nil {
 		panic(err)
 	}
@@ -69,5 +70,12 @@ func main() {
 	})
 	app.Get("/ws/:id", websocket.New(HandleWebsocket))
 
-	app.Listen(":8080")
+	app.Listen(":" + getEnv("PORT", "8080"))
+}
+
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
 }

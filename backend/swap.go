@@ -52,6 +52,12 @@ func HandleSwap(c *fiber.Ctx) error {
 
 	BroadcastToPlayers([]byte("refresh"))
 
+	_, err = db.Exec("INSERT INTO swaps (from_user, to_user, from_pet_id, to_pet_id) VALUES (?, ?, ?, ?)", myID, theirID, myPetID, theirPetID)
+	if err != nil {
+		log.Println("Error inserting swap ", err)
+		// Don't do anything else because who cares
+	}
+
 	return HandleGetState(c)
 	//return c.SendString("OK")
 }
