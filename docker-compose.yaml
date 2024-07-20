@@ -10,6 +10,6 @@ services:
       - DB_FILE=/app/db/sql.db
       - IMAGE_DIR=/app/public/parts
     ports:
-      - "8085 :8080"
+      - "8080:8080"
     volumes:
       - /home/ubuntu/fh-db:/app/db
