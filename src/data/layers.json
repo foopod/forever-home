@@ -1,8 +1,0 @@
-{
-    "bases": ["cat", "dog"],
-    "eyes": ["carefree", "sleepy", "anxious"],
-    "mouths": ["happy", "sad"],
-    "noses": ["normal"],
-    "ears": ["alert", "normal"],
-    "accessories": ["moustache", "sunnies", "monocle", "hat"]
-}
