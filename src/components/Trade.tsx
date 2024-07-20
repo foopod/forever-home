@@ -6,12 +6,11 @@ import { Audio } from "react-loader-spinner"
 import { GameContext } from "../context/GameContext"
 
 interface Props {
-    userID: string
     isOpen: boolean
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
+const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
     const [scannerOpen, setScannerOpen] = useState(false)
     const [loading, setLoading] = useState(false)
     const { currentState, setCurrentState } = useContext(GameContext)
@@ -25,13 +24,14 @@ const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
         setLoading(true)
 
         // call trade api
-        const response = await fetch(`http://localhost:8080/api/swap/${currentState.player.id}/${result}`)
+        const response = await fetch(`http://localhost:8080/api/swap/${currentState.player.id}/${result}`, {method: "POST"})
         const json = await response.json()
         setCurrentState(json)
 
         setLoading(false)
         // At the end close scanner
         setScannerOpen(false)
+        setIsOpen(false)
     }
     
     useEffect(() => {
@@ -49,12 +49,15 @@ const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
                     { !loading &&
                         <>
                             <div className="m-5">
-                                <QRCode
-                                    size={256}
-                                    className="max-md:h-max max-md:w-full"
-                                    value={userID}
-                                    viewBox={`0 0 256 256`}
-                                />
+                                {currentState.player.id &&
+                                    <QRCode
+                                        size={256}
+                                        className="max-md:h-max max-md:w-full"
+                                        value={currentState.player.id.toString()}
+                                        viewBox={`0 0 256 256`}
+                                    />
+                                }
+                                <p>{currentState.player.id}</p>
                             </div>
                             <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Scan a QR</button>
                             <div className='absolute top-0 right-0' onClick={() =>  {setIsOpen(false)}}>

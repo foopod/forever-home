@@ -22,6 +22,7 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, handleScan }) => {
     }, [])
 
     const onScanSuccess = (result: QrScanner.ScanResult) => {
+      console.log(result)
       handleScan(result?.data);
         setIsActive(false)
   };

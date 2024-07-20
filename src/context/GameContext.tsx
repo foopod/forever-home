@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react"
 type GameContextType = {
     currentState: any | null
     setCurrentState: (state: any) => void
+    refreshState: () => void
 }
 export const GameContext = React.createContext<GameContextType>({
     currentState: {},
     setCurrentState: () => {},
+    refreshState: () => {}
 })
 
 export const GameContextProvider = ({ children }: { children: React.ReactNode }) => {
@@ -17,10 +19,17 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
         localStorage.setItem('state', JSON.stringify(state));
     }
 
+    const refreshState = async () => {
+        const id = currentState.player.id
+        const response = await fetch(`http://localhost:8080/api/state/${id}`)
+        const json = await response.json()
+        updateState(json)
+    }
+
     const joinGame = async () => {
         const response = await fetch('http://localhost:8080/api/join')
         const json = await response.json()
-        updateState(json.player.pet)
+        updateState(json)
         return json
     }
     
@@ -34,7 +43,7 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
     }, [])
 
     return (
-        <GameContext.Provider value={{currentState: currentState, setCurrentState:setCurrentState}}>
+        <GameContext.Provider value={{currentState: currentState, setCurrentState:updateState, refreshState:refreshState}}>
           {children}
         </GameContext.Provider>
       );

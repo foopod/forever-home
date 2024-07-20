@@ -1,7 +1,11 @@
-import { useState } from "react"
+import { Dispatch, SetStateAction } from "react"
 
-const Join = () => {
-    const [isOpen, setIsOpen] = useState(true)
+interface Props {
+    isOpen: boolean
+    setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const Join: React.FC<Props>  = ({isOpen, setIsOpen}) => {
 
     return(
         <> {
