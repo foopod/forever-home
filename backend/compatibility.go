@@ -12,6 +12,9 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 	similarity := 1.0
 
 	for key, playerValue := range player.Attributes {
+		if key == "species" || key == "name" {
+			continue
+		}
 		petValue, exists := pet.Attributes[key]
 		if !exists {
 			similarity *= 0.5
