@@ -36,4 +36,5 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 
 	}
 	return similarity
+
 }
