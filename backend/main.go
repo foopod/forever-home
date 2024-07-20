@@ -52,6 +52,8 @@ func main() {
 		AllowOrigins: "*",
 	}))
 
+	app.Static("/", "./dist")
+
 	// Register API endpoints
 	app.Get("/api/join", HandleJoin)
 	app.Post("/api/swap/:myid/:id", HandleSwap)
