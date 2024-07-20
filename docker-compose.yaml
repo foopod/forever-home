@@ -8,7 +8,7 @@ services:
       context: .
     environment:
       - DB_FILE=/app/db/sql.db
-      - IMAGE_DIR=/app/public/parts
+      - IMAGE_DIR=/app/dist/public/parts
     ports:
       - "8080:8080"
     volumes:
