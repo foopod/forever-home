@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_ENDPOINT, isProduction } from '../environment'
+import { API_ENDPOINT } from '../environment'
 
 type GameContextType = {
     currentState: any | null
