@@ -11,4 +11,4 @@ services:
     ports:
       - "8085:8080"
     volumes:
-      - ${PWD}/sql.db:/app/db
+      - /home/ubuntu/fh-db:/app/db
