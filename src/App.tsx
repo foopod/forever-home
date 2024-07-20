@@ -57,17 +57,15 @@ function App() {
             <div className='flex flex-col items-center'>
               <div className='m-3 flex space-x-8'>
                 <Score score={currentState.player.pet_compatibility} />
-                <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Trade Pets</button>
+                <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Swap Pets</button>
               </div>
-              <div className='m-2'>
-                <p>{currentState.player.attributes["name"]}</p>
-                {/* <img src="https://placehold.co/400"/> */}
+              <div className='m-2 drop-shadow-md my-2'>
                 <LayeredImage attributes={currentState.player.attributes} />
+                <p className='text-center bg-white text-xl -mt-2 pb-2 '><code>CLIENT NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.attributes["name"]}</span></p>
               </div>
-              <div className='m-2'>
-                <p>{currentState.player.pet.attributes["name"]}</p>
-                {/* <img src="https://placehold.co/400"/> */}
+              <div className='m-2 drop-shadow-md my-2'>
                 <LayeredImage attributes={currentState.player.pet.attributes} />
+                <p className='text-center bg-white text-xl -mt-2 pb-2'><code>PET NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.pet.attributes["name"]}</span></p>
               </div>
             </div>
           }

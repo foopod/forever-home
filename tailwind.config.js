@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         roboto: ['"Roboto"'],
         exo: ['"Exo 2"'],
+        grape: ['"Grape Nuts"'],
       }
     }
   },
