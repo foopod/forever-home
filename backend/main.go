@@ -4,10 +4,10 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gorilla/websocket"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -32,6 +32,11 @@ func init() {
 		CREATE TABLE IF NOT EXISTS pets (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		attributes JSONB);
+		CREATE TABLE IF NOT EXISTS swaps (
+		from_user INTEGER,
+		to_user INTEGER,
+		from_pet_id INTEGER,
+		to_pet_id INTEGER);
 	`)
 	if err != nil {
 		panic(err)
@@ -47,7 +52,7 @@ func main() {
 
 	// Register API endpoints
 	app.Get("/api/join", HandleJoin)
-	app.Post("/api/swap/:id", HandleSwap)
+	app.Post("/api/swap/:myid/:id", HandleSwap)
 	app.Get("/api/state/:id", HandleGetState)
 
 	// Register Websocket endpoint
@@ -58,7 +63,7 @@ func main() {
 		}
 		return fiber.ErrUpgradeRequired
 	})
-	app.Get("/ws", websocket.New(HandleWebsocket))
+	app.Get("/ws/:id", websocket.New(HandleWebsocket))
 
 	app.Listen(":8080")
 }
