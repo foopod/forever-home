@@ -19,6 +19,7 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
         setCurrentState(state);
         if (isProduction()) {
             localStorage.setItem('state', JSON.stringify(state));
+            console.log("State saved to local storage")
         }
     }
 
