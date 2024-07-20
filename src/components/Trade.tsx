@@ -12,8 +12,8 @@ interface Props {
 }
 
 const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
-    const [scannerOpen, setScannerOpen] = useState(false)
-    const [loading, setLoading] = useState(false)
+    const [scannerOpen, setScannerOpen] = useState(true)
+    const [loading, setLoading] = useState(true)
     const { currentState, setCurrentState } = useContext(GameContext)
 
     const toggleScan = () => {
@@ -67,15 +67,17 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
                         </>
                     }
                     { loading &&
-                        <Audio
-                            height="100"
-                            width="100"
-                            color="#4fa94d"
-                            ariaLabel="audio-loading"
-                            wrapperStyle={{}}
-                            wrapperClass="wrapper-class"
-                            visible={true}
-                        />
+                        <div className="m-auto">
+                            <Audio
+                                height="100"
+                                width="100"
+                                color="#4fa94d"
+                                ariaLabel="audio-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="wrapper-class"
+                                visible={true}
+                            />
+                        </div>
                     }
                     {scannerOpen &&
                         <>
