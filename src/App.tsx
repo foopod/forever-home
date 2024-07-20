@@ -5,12 +5,13 @@ import LayeredImage from './components/LayeredImage'
 import Join from './components/Join'
 import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
+import Score from './components/dashboard/Score'
 
 function App() {
   const [joinOpen, setJoinOpen] = useState(true)
   const [tradeOpen, setTradeOpen] = useState(false)
   const { currentState, refreshState } = useContext(GameContext)
-  
+
   const WS_URL = `http://localhost:8080/ws/${currentState?.player?.id}`
 
   const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
@@ -51,8 +52,8 @@ function App() {
           <Trade isOpen={tradeOpen} setIsOpen={setTradeOpen}/>
           {! tradeOpen &&
             <div className='flex flex-col items-center'>
-              <div className='m-3 flex space-arzzound'>
-                <span className='bg-green-500 text-white px-4 py-2 rounded-md mx-2'>78% Match</span>
+              <div className='m-3 flex space-x-8'>
+                <Score score={currentState.player.pet_compatibility} />
                 <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Trade Pets</button>
               </div>
               <div className='m-2'>
@@ -69,7 +70,7 @@ function App() {
                 <code>DEBUG:
                 {JSON.stringify(currentState)}</code>
               </div>
-              
+
             </div>
           }
         </>
