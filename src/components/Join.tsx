@@ -2,7 +2,6 @@ import { useState } from "react"
 
 const Join = () => {
     const [isOpen, setIsOpen] = useState(true)
-    
 
     return(
         <> {

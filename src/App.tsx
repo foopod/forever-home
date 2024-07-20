@@ -9,15 +9,15 @@ import Trade from './components/Trade'
 function App() {
   const [tradeOpen, setTradeOpen] = useState(false)
   const cat_image: PetImage = generatePetImage()
-  const WS_URL = "http://127.0.0.1:3000/ws"
+  // const WS_URL = "http://127.0.0.1:3000/ws"
 
-  const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
-    WS_URL,
-    {
-      share: false,
-      shouldReconnect: () => true,
-    },
-  )
+  // const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
+  //   WS_URL,
+  //   {
+  //     share: false,
+  //     shouldReconnect: () => true,
+  //   },
+  // )
   // useEffect(() => {
   //   console.log("Connection state changed")
   //   if (readyState === ReadyState.OPEN) {
