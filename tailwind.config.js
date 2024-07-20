@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        roboto: ['"Roboto"'],
+        exo: ['"Exo 2"'],
+      }
+    }
   },
   plugins: [
     require('@tailwindcss/typography'),

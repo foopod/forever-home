@@ -9,7 +9,7 @@ const Join = () => {
             isOpen &&
                 <div className="w-full h-full bg-white absolute top-0 left-0 flex flex-col justify-center">
                     <p>Wanna help someone find their...</p>
-                    <h1 className="mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Forever Home?</h1>
+                    <h1 className="mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl font-exo">Forever Home?</h1>
                     <div className="prose max-w-sm text-left mx-auto">
                         <ul>
                             <li>Find the pet that best matches your client</li>
