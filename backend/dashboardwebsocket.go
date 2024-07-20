@@ -1,5 +1,12 @@
 package main
 
+import (
+	"log"
+
+	"github.com/gofiber/contrib/websocket"
+)
+
+
 var dashboardConnections = make(map[*websocket.Conn] bool)
 
 func HandleDashboardWebsocket(c *websocket.Conn) {
@@ -9,7 +16,7 @@ func HandleDashboardWebsocket(c *websocket.Conn) {
 	var (
 		mt  int
 		msg []byte
-		//err error
+		err error
 	)
 	for {
 		if mt, msg, err = c.ReadMessage(); err != nil {
@@ -26,10 +33,14 @@ func HandleDashboardWebsocket(c *websocket.Conn) {
 	delete(dashboardConnections, c)
 }
 
-func BroadcastToPlayers(msg []byte) {
-	for _, client := range clients {
+func BroadcastToDashboards(msg []byte) {
+	for client := range dashboardConnections {
 		if err := client.Conn.WriteMessage(websocket.TextMessage, msg); err != nil {
 			log.Println("broadcast:", err)
 		}
 	}
+}
+
+func NotifyTradeEvent(){
+	BroadcastToDashboards([]byte{})
 }
