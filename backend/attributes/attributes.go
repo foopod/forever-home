@@ -2,6 +2,7 @@ package attributes
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -127,5 +128,6 @@ func getEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
+	log.Println("Returning fallback:", fallback)
 	return fallback
 }
