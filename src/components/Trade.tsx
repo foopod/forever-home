@@ -13,7 +13,6 @@ interface Props {
 
 const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
     const [scannerOpen, setScannerOpen] = useState(false)
-    const [scanResult, setScanResult] = useState('')
     const [loading, setLoading] = useState(false)
     const { currentState, setCurrentState } = useContext(GameContext)
 
