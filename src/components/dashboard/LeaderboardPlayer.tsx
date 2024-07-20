@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { FaTimes } from "react-icons/fa"
 import LayeredImage from "../LayeredImage"
 
 interface Props {

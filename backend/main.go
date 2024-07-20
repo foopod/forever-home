@@ -70,6 +70,15 @@ func main() {
 	})
 	app.Get("/ws/:id", websocket.New(HandleWebsocket))
 
+	app.Use("/dashboard/ws", func(c *fiber.Ctx) error {
+		if websocket.IsWebSocketUpgrade(c) {
+			c.Locals("allowed", true)
+			return c.Next()
+		}
+		return fiber.ErrUpgradeRequired
+	})
+	app.Get("/dashboard/ws", websocket.New(HandleDashboardWebsocket))
+
 	app.Listen(":" + getEnv("PORT", "8080"))
 }
 

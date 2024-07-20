@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import QRCode from "react-qr-code"
-import useWebSocket, { ReadyState } from "react-use-websocket"
+// import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
-import LayeredImage from './components/LayeredImage'
+// import LayeredImage from './components/LayeredImage'
 // import { PetImage, generatePetImage } from './data/layers'
 import LeaderboardPlayer from './components/dashboard/LeaderboardPlayer'
 import TradeEvent from './components/dashboard/TradeEvent'
@@ -13,10 +13,10 @@ function Dashboard() {
     return {"accessory":"acc_tan","base":"body_brown","eyes":"eyes_gold","mouth":"mouth_whiskers","species":"cat"}
   }
 
-  const cat_image: any = generatePetImage()
-  const WS_URL = "http://127.0.0.1:3000/dashboard/ws"
+  // const cat_image: any = generatePetImage()
+  // const WS_URL = "http://127.0.0.1:3000/dashboard/ws"
 
-  const [leaderboard, setLeaderboard] = useState([{
+  const [leaderboard] = useState([{
     id: 123213,
     name: "Henry Jenkins",
     attributes: generatePetImage(),
@@ -62,7 +62,7 @@ function Dashboard() {
       attributes: generatePetImage(),
     }
   }])
-  const [tradeEvents, setTradeEvents] = useState([{
+  const [tradeEvents] = useState([{
     person1: {
       id: 123213,
       name: "Henry Jenkins",
