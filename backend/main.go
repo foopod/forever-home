@@ -47,7 +47,7 @@ func main() {
 	// Register API endpoints
 	app.Get("/api/join", HandleJoin)
 	app.Post("/api/swap/:id", HandleSwap)
-	app.Get("/api/state", HandleGetState)
+	app.Get("/api/state/:id", HandleGetState)
 
 	// Register Websocket endpoint
 	app.Get("/ws", HandleWebsocket)
