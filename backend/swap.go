@@ -8,13 +8,13 @@ import (
 )
 
 func HandleSwap(c *fiber.Ctx) error {
-	myID, err := strconv.Atoi(c.Params("myid"))
+	myID, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		log.Println("Error getting myid")
 		return err
 	}
 
-	theirID, err := strconv.Atoi(c.Params("id"))
+	theirID, err := strconv.Atoi(c.Params("theirid"))
 	if err != nil {
 		log.Println("Error getting their ID")
 		return err
@@ -22,7 +22,7 @@ func HandleSwap(c *fiber.Ctx) error {
 
 	// Get MY pet ID
 	var myPetID int
-	err = db.QueryRow("SELECT pet_id from players WHERE id = ?", theirID).Scan(&myPetID)
+	err = db.QueryRow("SELECT pet_id from players WHERE id = ?", myID).Scan(&myPetID)
 	if err != nil {
 		log.Println("Error getting their petID ", err)
 		return err
