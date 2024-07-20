@@ -68,6 +68,7 @@ function App() {
                 <LayeredImage attributes={currentState.player.pet.attributes} />
                 <p className='text-center bg-white text-xl -mt-2 pb-2'><code>PET NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.pet.attributes["name"]}</span></p>
               </div>
+              {/* <button className='text-slate-300'>Need Help?</button> */}
             </div>
           }
         </>
