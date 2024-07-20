@@ -7,6 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gorilla/websocket"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -50,7 +51,14 @@ func main() {
 	app.Get("/api/state", HandleGetState)
 
 	// Register Websocket endpoint
-	app.Get("/ws", HandleWebsocket)
+	app.Use("/ws", func(c *fiber.Ctx) error {
+		if websocket.IsWebSocketUpgrade(c) {
+			c.Locals("allowed", true)
+			return c.Next()
+		}
+		return fiber.ErrUpgradeRequired
+	})
+	app.Get("/ws", websocket.New(HandleWebsocket))
 
 	app.Listen(":8080")
 }
