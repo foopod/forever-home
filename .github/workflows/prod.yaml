@@ -5,7 +5,7 @@ on: [push]
 jobs:
   deploy:
     runs-on: self-hosted 
-
+    steps:
     - name: Deploy to production
       run: |
         echo "Deploying to production"
