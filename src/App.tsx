@@ -6,13 +6,13 @@ import Join from './components/Join'
 import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
 import Score from './components/dashboard/Score'
-import { API_ENDPOINT } from './environment'
+import { WS_ENDPOINT } from './environment'
 
 function App() {
   const [tradeOpen, setTradeOpen] = useState(false)
   const { userID, currentState, refreshState } = useContext(GameContext)
 
-  const WS_URL = `${API_ENDPOINT}/ws/${currentState?.player?.id}`
+  const WS_URL = `${WS_ENDPOINT}/ws/${currentState?.player?.id}`
 
   const onMessage = () => {
     console.log("Recieved Message")
