@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { FaTimes } from "react-icons/fa"
 import QRCode from "react-qr-code"
 import Scanner from "./Scanner"
@@ -17,6 +17,13 @@ const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
       setScannerOpen(prev => !prev)
     }
     
+    useEffect(() => {
+        const close = () => { setScannerOpen(false)}
+        window.history.pushState({}, '', '/')
+        window.addEventListener("popstate", close)
+  
+        return (window.removeEventListener("popstate", close))
+      }, [])
 
     return(
         <> {

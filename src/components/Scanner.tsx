@@ -1,7 +1,6 @@
 import QrScanner from 'qr-scanner';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
-import useBackListener from '../hooks/useBackListener';
 
 
 interface Props {
@@ -15,12 +14,12 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, setResult }) => {
     const videoEl = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
+      const close = () => { setIsActive(false)}
       window.history.pushState({}, '', '/')
-    }, [])
+      window.addEventListener("popstate", close)
 
-    useBackListener(() => {
-      setIsActive(false)
-    });
+      return (window.removeEventListener("popstate", close))
+    }, [])
 
     const onScanSuccess = (result: QrScanner.ScanResult) => {
         setResult(result?.data);
