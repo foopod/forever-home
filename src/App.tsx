@@ -54,8 +54,8 @@ function App() {
           <Trade isOpen={tradeOpen} setIsOpen={setTradeOpen}/>
           {! tradeOpen &&
             <div className='flex flex-col items-center'>
-              <div className='m-3 flex space-arzzound'>
-                <span className='bg-green-500 text-white px-4 py-2 rounded-md mx-2'>78% Match</span>
+              <div className='m-3 flex space-x-8'>
+                <Score score={currentState.player.pet_compatibility} />
                 <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Trade Pets</button>
               </div>
               <div className='m-2'>
