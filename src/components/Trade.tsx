@@ -12,8 +12,8 @@ interface Props {
 }
 
 const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
-    const [scannerOpen, setScannerOpen] = useState(true)
-    const [loading, setLoading] = useState(true)
+    const [scannerOpen, setScannerOpen] = useState(false)
+    const [loading, setLoading] = useState(false)
     const { currentState, setCurrentState } = useContext(GameContext)
 
     const toggleScan = () => {
