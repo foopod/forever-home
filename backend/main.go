@@ -23,7 +23,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
 
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS players (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +39,7 @@ func init() {
 }
 
 func main() {
-
+	defer db.Close()
 	app := fiber.New()
 	app.Use(logger.New())
 	app.Use(cors.New())

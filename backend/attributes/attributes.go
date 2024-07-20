@@ -1,4 +1,4 @@
-package main
+package attributes
 
 import (
 	"fmt"
@@ -64,4 +64,12 @@ func CollectAttributes(baseDir string, attributeNames []string) map[string][]str
 	}
 
 	return outputAttributes
+}
+
+func Generate() map[string]string {
+
+	return map[string]string{
+		"hair": "long",
+		"eyes": "blue",
+	}
 }
