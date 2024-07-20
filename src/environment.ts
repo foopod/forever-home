@@ -1,8 +1,7 @@
 const API_ENDPOINT = import.meta.env.VITE_REACT_APP_API_ENDPOINT
-const ENVIRONMENT = import.meta.env.ENVIRONMENT
+const ENVIRONMENT = import.meta.env.VITE_ENVIRONMENT
 
 function isProduction() {
-    console.log("Environment:", ENVIRONMENT)
     return ENVIRONMENT === 'production'
 }
 

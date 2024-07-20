@@ -19,9 +19,8 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
         setCurrentState(state);
         if (isProduction()) {
             localStorage.setItem('state', JSON.stringify(state));
-            console.log("State saved to local storage")
         } else {
-            console.log("Not in production, not saving state to local storage")
+            console.log("Running in dev, not saving state to local storage")
         }
     }
 
