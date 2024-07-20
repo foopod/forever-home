@@ -1,12 +1,14 @@
 package main
 
 import (
+	"math"
+
 	"github.com/adrg/strutil"
 	"github.com/adrg/strutil/metrics"
 )
 
 func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
-	levenshtein := metrics.NewLevenshtein()
+	method := metrics.NewJaccard()
 	similarity := 1.0
 
 	for key, playerValue := range player.Attributes {
@@ -14,8 +16,8 @@ func ComputePlayerPetCompatibility(player *Player, pet *Pet) float64 {
 		if !exists {
 			similarity *= 0.5
 		} else {
-			similarity *= strutil.Similarity(playerValue, petValue, levenshtein)
+			similarity *= strutil.Similarity(playerValue, petValue, method)
 		}
 	}
-	return similarity
+	return math.Cbrt(similarity)
 }
