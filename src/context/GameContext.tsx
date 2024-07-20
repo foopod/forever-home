@@ -16,7 +16,7 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
 
     const updateState = (state : any) => {
         setCurrentState(state);
-        localStorage.setItem('state', JSON.stringify(state));
+        // localStorage.setItem('state', JSON.stringify(state));
     }
 
     const refreshState = async () => {

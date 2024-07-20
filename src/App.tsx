@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react'
-// import useWebSocket, { ReadyState } from "react-use-websocket"
+import { useContext, useEffect, useState } from 'react'
+import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
 import LayeredImage from './components/LayeredImage'
-// import { Attributes } from './data/attributes'
 import Join from './components/Join'
 import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
@@ -10,33 +9,37 @@ import { GameContext } from './context/GameContext'
 function App() {
   const [joinOpen, setJoinOpen] = useState(true)
   const [tradeOpen, setTradeOpen] = useState(false)
-  const { currentState } = useContext(GameContext)
+  const { currentState, refreshState } = useContext(GameContext)
+  
+  const WS_URL = `http://localhost:8080/ws/${currentState?.player?.id}`
 
-  // const WS_URL = "http://127.0.0.1:3000/ws"
+  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
+    WS_URL,
+    {
+      share: false,
+      shouldReconnect: () => true,
+    },
+  )
 
-  // const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
-  //   WS_URL,
-  //   {
-  //     share: false,
-  //     shouldReconnect: () => true,
-  //   },
-  // )
-  // useEffect(() => {
-  //   console.log("Connection state changed")
-  //   if (readyState === ReadyState.OPEN) {
-  //     sendJsonMessage({
-  //       event: "subscribe",
-  //       data: {
-  //         channel: "general-chatroom",
-  //       },
-  //     })
-  //   }
-  // }, [readyState])
+  useEffect(() => {
+    console.log("Connection state changed")
+    if (readyState === ReadyState.OPEN) {
+      sendJsonMessage({
+        event: "subscribe",
+        data: {
+          channel: "general-chatroom",
+        },
+      })
+    }
+  }, [readyState])
 
-  // Run when a new WebSocket message is received (lastJsonMessage)
-  // useEffect(() => {
-  //   console.log(`Got a new message: ${lastJsonMessage}`)
-  // }, [lastJsonMessage])
+  useEffect(() => {
+    console.log("Recieved Message")
+    if(currentState){
+      refreshState()
+      setTradeOpen(false)
+    }
+  }, [lastJsonMessage])
 
   return (
     <main className='font-roboto'>
