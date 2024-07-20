@@ -52,5 +52,6 @@ func HandleSwap(c *fiber.Ctx) error {
 
 	BroadcastToPlayers([]byte("refresh"))
 
-	return c.SendString("OK")
+	return HandleGetState(c)
+	//return c.SendString("OK")
 }
