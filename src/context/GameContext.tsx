@@ -22,10 +22,13 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
 
     const refreshState = async (id: number) => {
         const response = await fetch(`${API_ENDPOINT}/api/state/${id}`)
-        const json = await response.json()
-
-        // Handle 404s
-        setCurrentState(json)
+        if(response.ok){
+            const json = await response.json()
+            setCurrentState(json)
+        } else {
+            setUserID(null)
+            localStorage.removeItem('userID');
+        }
     }
 
     const joinGame = async () => {
