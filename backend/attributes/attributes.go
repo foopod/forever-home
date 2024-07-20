@@ -2,11 +2,11 @@ package attributes
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"strings"
-	"math/rand"
-  	"time"
+	"time"
 )
 
 const ATTRIBUTE_BASE_DIR = "../public/parts"
@@ -18,11 +18,11 @@ var ATTRIBUTE_NAMES []string = []string{
 	"accessories",
 }
 
-var ALL_ATTRIBUTES = CollectAttributes(ATTRIBUTE_BASE_DIR)
+var ALL_ATTRIBUTES = CollectAttributes(getEnv("IMAGE_DIR", ATTRIBUTE_BASE_DIR))
 
 func CollectAttributes(baseDir string) map[string]map[string][]string {
 	outputAttributes := make(map[string]map[string][]string)
-	rand.Seed(time.Now().Unix()) 
+	rand.Seed(time.Now().Unix())
 
 	// Check the attribute folder exists
 	dir, err := os.Open(baseDir)
@@ -110,15 +110,22 @@ func Generate(species string) map[string]string {
 	attr := ALL_ATTRIBUTES["cat"]
 	if species == "dog" {
 		attr = ALL_ATTRIBUTES["dog"]
-	} else if species == "human"{
+	} else if species == "human" {
 		attr = ALL_ATTRIBUTES["human"]
 	}
 
 	return map[string]string{
-		"species": species,
-		"base": attr["base"][rand.Intn(len(attr["base"]))],
-		"eyes": attr["eyes"][rand.Intn(len(attr["eyes"]))],
-		"mouth": attr["mouth"][rand.Intn(len(attr["mouth"]))],
+		"species":   species,
+		"base":      attr["base"][rand.Intn(len(attr["base"]))],
+		"eyes":      attr["eyes"][rand.Intn(len(attr["eyes"]))],
+		"mouth":     attr["mouth"][rand.Intn(len(attr["mouth"]))],
 		"accessory": attr["accessories"][rand.Intn(len(attr["accessories"]))],
 	}
+}
+
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
 }
