@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa"
 import LayeredImage from "../LayeredImage"
 
 interface Props {
-    player: object
+    player: any
     position: number
 }
 
@@ -13,11 +13,11 @@ const LeaderboardPlayer: React.FC<Props> = ({player, position}) => {
             <span className="flex-none font-extrabold text-4xl w-12">#{position}</span>
             <div className="flex-auto w-1/3">
             <span className="text-2xl">{player.name}</span>
-                <LayeredImage pet={player.attributes} />
+                <LayeredImage attributes={player.attributes} />
             </div>
             <div className="flex-auto w-1/3">
                 <span className="text-2xl">{player.currentPet.name}</span>
-                <LayeredImage pet={player.currentPet.attributes} />
+                <LayeredImage attributes={player.currentPet.attributes} />
             </div>
             <div className="flex-auto w-1/3 text-right">
                 <div className="flex justify-end">

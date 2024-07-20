@@ -9,7 +9,11 @@ import TradeEvent from './components/dashboard/TradeEvent'
 
 
 function Dashboard() {
-  const cat_image: PetImage = generatePetImage()
+  const generatePetImage = () => {
+    return {"accessory":"acc_tan","base":"body_brown","eyes":"eyes_gold","mouth":"mouth_whiskers","species":"cat"}
+  }
+
+  const cat_image: any = generatePetImage()
   const WS_URL = "http://127.0.0.1:3000/dashboard/ws"
 
   const [leaderboard, setLeaderboard] = useState([{
@@ -123,13 +127,13 @@ function Dashboard() {
     },
   }])
 
-  const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
-    WS_URL,
-    {
-      share: false,
-      shouldReconnect: () => true,
-    },
-  )
+  // const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
+  //   WS_URL,
+  //   {
+  //     share: false,
+  //     shouldReconnect: () => true,
+  //   },
+  // )
   // useEffect(() => {
   //   console.log("Connection state changed")
   //   if (readyState === ReadyState.OPEN) {
@@ -201,24 +205,6 @@ function Dashboard() {
 
         </div>
       </div>
-
-      {false &&
-        <div className='flex flex-col items-center'>
-          <div className='m-3 flex space-around'>
-            <span className='bg-green-500 text-white px-4 py-2 rounded-md mx-2'>78% Match</span>
-            <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Trade Pets</button>
-          </div>
-          <div className='m-2'>
-            <p>Margaret</p>
-            <img src="https://placehold.co/400"/>
-          </div>
-          <div className='m-2'>
-            <p>Bubbles</p>
-            <img src="https://placehold.co/400"/>
-          </div>
-          <LayeredImage pet={cat_image} />
-        </div>
-      }
     </main>
   )
 }
