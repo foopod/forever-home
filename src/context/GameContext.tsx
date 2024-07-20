@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_ENDPOINT } from '../environment'
+import { API_ENDPOINT, isProduction } from '../environment'
 
 type GameContextType = {
     currentState: any | null
@@ -17,7 +17,9 @@ export const GameContextProvider = ({ children }: { children: React.ReactNode })
 
     const updateState = (state : any) => {
         setCurrentState(state);
-        // localStorage.setItem('state', JSON.stringify(state));
+        if (isProduction()) {
+            localStorage.setItem('state', JSON.stringify(state));
+        }
     }
 
     const refreshState = async () => {
