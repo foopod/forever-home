@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './App.css'
 import LayeredImage from './components/LayeredImage'
-import Scanner from './components/Scanner'
 import { PetImage, generatePetImage } from './data/layers'
 import Join from './components/Join'
 import Trade from './components/Trade'

@@ -13,7 +13,6 @@ const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
     const [scannerOpen, setScannerOpen] = useState(false)
     const [scanResult, setScanResult] = useState('')
 
-  
     const toggleScan = () => {
       setScannerOpen(prev => !prev)
     }
@@ -23,6 +22,8 @@ const Trade: React.FC<Props> = ({userID, isOpen, setIsOpen}) => {
         <> {
             isOpen &&
                 <div className="w-full h-full bg-white absolute top-0 left-0 flex flex-col justify-center">
+                    <p>{scanResult}</p>
+                    
                     <div className="m-5">
                         <QRCode
                             size={256}
