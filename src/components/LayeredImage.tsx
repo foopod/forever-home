@@ -1,18 +1,16 @@
-import { PetImage } from "../data/layers"
+import { Attributes } from "../data/attributes"
 
 interface Props {
-    pet: PetImage
+    attributes: Attributes
 }
 
-const LayeredImage: React.FC<Props> = ({pet}) => {
+const LayeredImage: React.FC<Props> = ({attributes}) => {
 
     return <div className="grid grid-cols-1">
-        <img className='col-start-1 row-start-1' src={`/parts/bg_${pet.base}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/body_${pet.accessory}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/eyes_${pet.eyes}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/mouth_${pet.mouth}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/nose_${pet.nose}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/nose_${pet.ears}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/bg_${attributes.base}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/body_${attributes.accessory}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/eyes_${attributes.eyes}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/mouth_${attributes.mouth}.png`} />
     </div>
 }
 
