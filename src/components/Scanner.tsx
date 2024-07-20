@@ -6,10 +6,10 @@ import { FaTimes } from 'react-icons/fa';
 interface Props {
   isActive: boolean
   setIsActive: Dispatch<SetStateAction<boolean>>
-  setResult: Dispatch<SetStateAction<string>>
+  handleScan: (result: string) => void
 }
 
-const Scanner: React.FC<Props> = ({ isActive, setIsActive, setResult }) => {
+const Scanner: React.FC<Props> = ({ isActive, setIsActive, handleScan }) => {
     const scanner = useRef<QrScanner>();
     const videoEl = useRef<HTMLVideoElement>(null);
 
@@ -22,9 +22,9 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, setResult }) => {
     }, [])
 
     const onScanSuccess = (result: QrScanner.ScanResult) => {
-        setResult(result?.data);
+      handleScan(result?.data);
         setIsActive(false)
-    };
+  };
     
     const onScanFail = (err: string | Error) => {
         console.log(err);
