@@ -14,11 +14,20 @@ function App() {
 
   const WS_URL = `${API_ENDPOINT}/ws/${currentState?.player?.id}`
 
-  const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(
+  const onMessage = () => {
+    console.log("Recieved Message")
+    if(userID){
+      refreshState(userID)
+      setTradeOpen(false)
+    }
+  }
+
+  const { sendJsonMessage, readyState } = useWebSocket(
     WS_URL,
     {
       share: false,
       shouldReconnect: () => true,
+      onMessage
     },
   )
 
@@ -34,14 +43,6 @@ function App() {
       })
     }
   }, [readyState])
-
-  useEffect(() => {
-    console.log("Recieved Message")
-    if(currentState && userID){
-      refreshState(userID)
-      setTradeOpen(false)
-    }
-  }, [lastJsonMessage])
 
   if (!userID || !currentState){
     return <Join />
