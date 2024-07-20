@@ -48,7 +48,9 @@ func main() {
 	defer db.Close()
 	app := fiber.New()
 	app.Use(logger.New())
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+	}))
 
 	// Register API endpoints
 	app.Get("/api/join", HandleJoin)
