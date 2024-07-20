@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/adrg/strutil v0.3.1 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/fasthttp/websocket v1.5.10 // indirect
 	github.com/google/uuid v1.6.0 // indirect

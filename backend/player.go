@@ -8,8 +8,9 @@ import (
 type Player struct {
 	ID int `json:"id"`
 	//PetID      int        `json:"pet_id"`
-	Pet        Pet        `json:"pet"`
-	Attributes Attributes `json:"attributes"`
+	Pet              Pet        `json:"pet"`
+	Attributes       Attributes `json:"attributes"`
+	PetCompatibility float64    `json:"pet_compatibility"`
 }
 
 func GetPlayerByID(id int) (*Player, error) {
@@ -37,6 +38,7 @@ func GetPlayerByID(id int) (*Player, error) {
 		return nil, err
 	}
 	p.Pet = *pet
+	p.PetCompatibility = ComputePlayerPetCompatibility(&p, &p.Pet)
 
 	log.Printf("Player found %d, %#v", id, p)
 	return &p, nil
