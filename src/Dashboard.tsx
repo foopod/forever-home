@@ -3,7 +3,7 @@ import QRCode from "react-qr-code"
 import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
 import LayeredImage from './components/LayeredImage'
-import { PetImage, generatePetImage } from './data/layers'
+// import { PetImage, generatePetImage } from './data/layers'
 import LeaderboardPlayer from './components/dashboard/LeaderboardPlayer'
 import TradeEvent from './components/dashboard/TradeEvent'
 

@@ -7,10 +7,10 @@ interface Props {
 const LayeredImage: React.FC<Props> = ({attributes}) => {
 
     return <div className="grid grid-cols-1">
-        <img className='col-start-1 row-start-1' src={`/parts/bg_${attributes.base}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/body_${attributes.accessory}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/eyes_${attributes.eyes}.png`} />
-        <img className='col-start-1 row-start-1' src={`/parts/mouth_${attributes.mouth}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/${attributes.species}/base/${attributes.base}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/${attributes.species}/accessories/${attributes.accessory}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/${attributes.species}/eyes/${attributes.eyes}.png`} />
+        <img className='col-start-1 row-start-1' src={`/parts/${attributes.species}/mouth/${attributes.mouth}.png`} />
     </div>
 }
 

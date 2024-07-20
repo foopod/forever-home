@@ -3,4 +3,5 @@ export interface Attributes {
     eyes : string
     mouth : string
     accessory: string
+    species: string
 }

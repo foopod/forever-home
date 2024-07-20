@@ -22,9 +22,9 @@ func HandleJoin(c *fiber.Ctx) error {
 		ID: rand.IntN(MAX_ID),
 		Pet: Pet{
 			ID:         rand.IntN(MAX_ID),
-			Attributes: attributes.Generate(),
+			Attributes: attributes.Generate("cat"),
 		},
-		Attributes: attributes.Generate(),
+		Attributes: attributes.Generate("human"),
 	}
 
 	// pet := Pet{

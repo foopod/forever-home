@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 // import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
 import LayeredImage from './components/LayeredImage'
-import { Attributes } from './data/attributes'
+// import { Attributes } from './data/attributes'
 import Join from './components/Join'
 import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
@@ -54,13 +54,13 @@ function App() {
               </div>
               <div className='m-2'>
                 <p>Margaret</p>
-                <img src="https://placehold.co/400"/>
-                {/* <LayeredImage attributes={currentState.player.attributes} /> */}
+                {/* <img src="https://placehold.co/400"/> */}
+                <LayeredImage attributes={currentState.player.attributes} />
               </div>
               <div className='m-2'>
                 <p>Bubbles</p>
-                <img src="https://placehold.co/400"/>
-                {/* <LayeredImage attributes={currentState.player.pet.attributes} /> */}
+                {/* <img src="https://placehold.co/400"/> */}
+                <LayeredImage attributes={currentState.player.pet.attributes} />
               </div>
               <div>
                 <code>DEBUG:

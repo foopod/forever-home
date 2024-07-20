@@ -9,7 +9,7 @@ import (
   	"time"
 )
 
-const ATTRIBUTE_BASE_DIR = "../../public/parts"
+const ATTRIBUTE_BASE_DIR = "../public/parts"
 
 var ATTRIBUTE_NAMES []string = []string{
 	"base",
@@ -115,9 +115,10 @@ func Generate(species string) map[string]string {
 	}
 
 	return map[string]string{
+		"species": species,
 		"base": attr["base"][rand.Intn(len(attr["base"]))],
 		"eyes": attr["eyes"][rand.Intn(len(attr["eyes"]))],
 		"mouth": attr["mouth"][rand.Intn(len(attr["mouth"]))],
-		"accessories": attr["accessories"][rand.Intn(len(attr["accessories"]))],
+		"accessory": attr["accessories"][rand.Intn(len(attr["accessories"]))],
 	}
 }
