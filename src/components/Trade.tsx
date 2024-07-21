@@ -23,11 +23,14 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
     const handleScan = async (result: string) => {
         // result should be a userID
         setLoading(true)
-
+        
         // call trade api
         const response = await fetch(`${API_ENDPOINT}/api/swap/${currentState.player.id}/${result}`, {method: "POST"})
-        const json = await response.json()
-        setCurrentState(json)
+        
+        if (response.ok){
+            const json = await response.json()
+            setCurrentState(json)
+        }
 
         setLoading(false)
         // At the end close scanner

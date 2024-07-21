@@ -23,6 +23,7 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, handleScan }) => {
     }, [])
 
     const onScanSuccess = (result: QrScanner.ScanResult) => {
+      console.log(`${result?.data} - ${Date.toString()}`)
       setScanResult(result?.data)
     };
     
