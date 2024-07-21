@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import QRCode from "react-qr-code"
 // import useWebSocket, { ReadyState } from "react-use-websocket"
 import './App.css'
@@ -6,126 +6,294 @@ import './App.css'
 // import { PetImage, generatePetImage } from './data/layers'
 import LeaderboardPlayer from './components/dashboard/LeaderboardPlayer'
 import TradeEvent from './components/dashboard/TradeEvent'
+import { WS_ENDPOINT } from './environment'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 
 function Dashboard() {
-  const generatePetImage = () => {
-    return {"accessory":"acc_tan","base":"body_brown","eyes":"eyes_gold","mouth":"mouth_whiskers","species":"cat"}
+  const WS_URL = `${WS_ENDPOINT}/dashboard/ws`
+  const [tradeEvents, setTradeEvents] = useState([])
+
+  const onMessage = (message: any) => {
+    console.log("Recieved Message:")
+    if(message.msgtype == "notify-trade"){
+      const updated_events = JSON.parse(JSON.stringify(tradeEvents))
+      // pop front if longer than 5
+      if(updated_events.length > 5){
+        updated_events.shift()
+      }
+      updated_events.push({
+        person1: message.player1,
+        person2: message.player2
+      })
+      setTradeEvents(updated_events)
+    }
+    console.log(message)
   }
 
-  // const cat_image: any = generatePetImage()
-  // const WS_URL = "http://127.0.0.1:3000/dashboard/ws"
+  const { sendJsonMessage, readyState } = useWebSocket(
+    WS_URL,
+    {
+      share: false,
+      shouldReconnect: () => true,
+      onMessage
+    },
+  )
+
+  useEffect(() => {
+    console.log("Connection state changed")
+    if (readyState === ReadyState.OPEN) {
+      sendJsonMessage({
+        event: "subscribe",
+        data: {
+          channel: "dashboard",
+        },
+      })
+    }
+  }, [readyState])
 
   const [leaderboard] = useState([{
     id: 123213,
     name: "Henry Jenkins",
-    attributes: generatePetImage(),
+    attributes:  {
+                        accessory: "accessories2",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     currentPet: {
       id: 12312,
       name: "Spunky",
-      attributes: generatePetImage(),
+      attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     }
   }, {
     id: 11212,
     name: "Bok Choi",
-    attributes: generatePetImage(),
+    attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes3",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     currentPet: {
       id: 12312,
       name: "Charles III",
-      attributes: generatePetImage(),
+      attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     }
   }, {
     id: 11212,
     name: "Bok Choi",
-    attributes: generatePetImage(),
+    attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth2",
+                        species: "cat"
+                    },
     currentPet: {
       id: 12312,
       name: "Charles III",
-      attributes: generatePetImage(),
+      attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     }
   }, {
     id: 11212,
     name: "Bok Choi",
-    attributes: generatePetImage(),
+    attributes:  {
+                        accessory: "accessories1",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     currentPet: {
       id: 12312,
       name: "Charles III",
-      attributes: generatePetImage(),
+      attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "cat"
+                    },
     }
   }, {
     id: 11212,
     name: "Bok Choi",
-    attributes: generatePetImage(),
+    attributes:  {
+                        accessory: "accessories3",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth2",
+                        species: "cat"
+                    },
     currentPet: {
       id: 12312,
       name: "Charles III",
-      attributes: generatePetImage(),
+      attributes:  {
+                        accessory: "accessories5",
+                        base: "base3a",
+                        eyes: "eyes1",
+                        mouth: "mouth1",
+                        species: "human"
+                    },
     }
   }])
-  const [tradeEvents] = useState([{
-    person1: {
-      id: 123213,
-      name: "Henry Jenkins",
-      attributes: generatePetImage(),
-    },
-    pet1: {
-      id: 12312,
-      name: "Spunky",
-      attributes: generatePetImage(),
-    },
-    person2: {
-      id: 11212,
-      name: "Bok Choi",
-      attributes: generatePetImage(),
-    },
-    pet2: {
-      id: 12312,
-      name: "Charles III",
-      attributes: generatePetImage(),
-    },
-  }, {
-    person1: {
-      id: 123213,
-      name: "Henry Jenkins",
-      attributes: generatePetImage(),
-    },
-    pet1: {
-      id: 12312,
-      name: "Spunky",
-      attributes: generatePetImage(),
-    },
-    person2: {
-      id: 11212,
-      name: "Bok Choi",
-      attributes: generatePetImage(),
-    },
-    pet2: {
-      id: 12312,
-      name: "Charles III",
-      attributes: generatePetImage(),
-    },
-  }, {
-    person1: {
-      id: 123213,
-      name: "Henry Jenkins",
-      attributes: generatePetImage(),
-    },
-    pet1: {
-      id: 12312,
-      name: "Spunky",
-      attributes: generatePetImage(),
-    },
-    person2: {
-      id: 11212,
-      name: "Bok Choi",
-      attributes: generatePetImage(),
-    },
-    pet2: {
-      id: 12312,
-      name: "Charles III",
-      attributes: generatePetImage(),
-    },
-  }])
+  // // const [tradeEvents] = useState([{
+  // //   person1: {
+  // //     id: 123213,
+  // //     name: "Henry Jenkins",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet1: {
+  // //     id: 12312,
+  // //     name: "Spunky",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   person2: {
+  // //     id: 11212,
+  // //     name: "Bok Choi",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet2: {
+  // //     id: 12312,
+  // //     name: "Charles III",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // // }, {
+  // //   person1: {
+  // //     id: 123213,
+  // //     name: "Henry Jenkins",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet1: {
+  // //     id: 12312,
+  // //     name: "Spunky",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   person2: {
+  // //     id: 11212,
+  // //     name: "Bok Choi",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet2: {
+  // //     id: 12312,
+  // //     name: "Charles III",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // // }, {
+  // //   person1: {
+  // //     id: 123213,
+  // //     name: "Henry Jenkins",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet1: {
+  // //     id: 12312,
+  // //     name: "Spunky",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   person2: {
+  // //     id: 11212,
+  // //     name: "Bok Choi",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // //   pet2: {
+  // //     id: 12312,
+  // //     name: "Charles III",
+  // //     attributes:  {
+  //                       accessory: "accessories5",
+  //                       base: "base3a",
+  //                       eyes: "eyes1",
+  //                       mouth: "mouth1",
+  //                       species: "cat"
+  //                   },
+  // //   },
+  // }])
 
   // const { sendJsonMessage, lastJsonMessage, sendMessage, lastMessage, readyState } = useWebSocket(
   //   WS_URL,
@@ -161,7 +329,7 @@ function Dashboard() {
             <div className="flex flex-col gap-2">
               {
                 leaderboard.map(function(player, index){
-                  return <LeaderboardPlayer player={player} position={index+1} />
+                  return <LeaderboardPlayer player={player} position={index+1} key={JSON.stringify(player)} />
                 })
               }
             </div>
@@ -171,7 +339,7 @@ function Dashboard() {
             <div className="flex flex-col gap-2">
               {
                 tradeEvents.map(function(trade){
-                  return <TradeEvent trade={trade} />
+                  return <TradeEvent trade={trade} key={JSON.stringify(trade)} />
                 })
               }
             </div>
