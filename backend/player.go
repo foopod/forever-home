@@ -11,9 +11,11 @@ type Player struct {
 	Pet              Pet        `json:"pet"`
 	Attributes       Attributes `json:"attributes"`
 	PetCompatibility float64    `json:"pet_compatibility"`
+	TradeCount       int        `json:"trade_count"`
 }
 
 func GetPlayerByID(id int) (*Player, error) {
+	log.Println("Getting player by ID", id)
 	var p Player
 	var petID int
 
@@ -40,6 +42,14 @@ func GetPlayerByID(id int) (*Player, error) {
 	p.Pet = *pet
 	p.PetCompatibility = ComputePlayerPetCompatibility(&p, &p.Pet)
 
-	//log.Printf("Player found %d, %#v", id, p)
+	// Get trade count
+	err = db.QueryRow(`SELECT COUNT(*) FROM swaps WHERE from_user = ? OR to_user = ?`, id, id).Scan(&p.TradeCount)
+	if err != nil {
+		log.Printf("Error getting trade count for player %d: %s", id, err)
+		// Don't return error, just set trade count to 0
+		p.TradeCount = 0
+	}
+
+	log.Printf("Player found %d, %#v", id, p)
 	return &p, nil
 }
