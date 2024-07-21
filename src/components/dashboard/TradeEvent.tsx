@@ -7,7 +7,7 @@ interface Props {
 
 const TradeEvent: React.FC<Props> = ({trade}) => {
     return(
-        <div className="border rounded flex justify-between p-2 px-3 py-2">
+        <div className="border rounded flex justify-between p-2 px-3 py-2  bg-white drop-shadow-md">
             <div className="flex">
                 <div className="flex-auto w-1/2">
                     <span className="text-2xl">{trade.person1.name}</span>
