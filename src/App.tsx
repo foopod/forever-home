@@ -50,7 +50,7 @@ function App() {
   }
 
   return (
-    <main className='font-roboto'>
+    <main className='font-roboto max-w-xl m-auto'>
       {currentState &&
         <>
           <h1 className='mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl font-exo'>Forever Home</h1>

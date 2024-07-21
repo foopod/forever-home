@@ -52,20 +52,22 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
                 <div className="w-full h-full bg-white absolute top-0 left-0 flex flex-col justify-center">
                     { !loading &&
                         <>
-                            <div className="m-5">
-                                {currentState.player.id &&
-                                    <QRCode
-                                        size={256}
-                                        className="max-md:h-max max-md:w-full"
-                                        value={currentState.player.id.toString()}
-                                        viewBox={`0 0 256 256`}
-                                    />
-                                }
-                                <p>{currentState.player.id}</p>
-                            </div>
-                            <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Scan a QR</button>
-                            <div className='absolute top-0 right-0' onClick={() =>  {setIsOpen(false)}}>
-                                <FaTimes color='black' size={"4em"}/>
+                            <div className="max-w-xl m-auto">
+                                <div className="m-5">
+                                    {currentState.player.id &&
+                                        <QRCode
+                                            size={256}
+                                            className="max-md:h-max max-md:w-full"
+                                            value={currentState.player.id.toString()}
+                                            viewBox={`0 0 256 256`}
+                                        />
+                                    }
+                                    <p>{currentState.player.id}</p>
+                                </div>
+                                <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Scan a QR</button>
+                                <div className='absolute top-0 right-0' onClick={() =>  {setIsOpen(false)}}>
+                                    <FaTimes color='black' size={"4em"}/>
+                                </div>
                             </div>
                         </>
                     }
