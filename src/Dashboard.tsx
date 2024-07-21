@@ -11,7 +11,7 @@ import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 
 function Dashboard() {
-  const WS_URL = `${WS_ENDPOINT}/dashboard/ws`
+  const WS_URL = `${WS_ENDPOINT}/dashboard/ws/`
   const [tradeEvents, setTradeEvents] = useState([])
 
   const onMessage = (message: any) => {
