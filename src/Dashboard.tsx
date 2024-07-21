@@ -90,14 +90,6 @@ function Dashboard() {
               <span className="w-16 font-extrabold">{playerCount}</span>
               <span>players</span>
             </div>
-            {/* <div className="flex gap-4">
-              <span className="w-16 font-extrabold">75%</span>
-              <span>total harmony</span>
-            </div>
-            <div className="flex gap-4">
-              <span className="w-16 font-extrabold">75%</span>
-              <span>total helpfulness</span>
-            </div> */}
           </div>
           <div className="space-y-2">
             <span className="text-4xl font-extrabold">Join here:</span>

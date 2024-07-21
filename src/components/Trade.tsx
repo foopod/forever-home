@@ -62,7 +62,6 @@ const Trade: React.FC<Props> = ({isOpen, setIsOpen}) => {
                                             viewBox={`0 0 256 256`}
                                         />
                                     }
-                                    <p>{currentState.player.id}</p>
                                 </div>
                                 <button onClick={toggleScan} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Scan a QR</button>
                                 <div className='absolute top-0 right-0' onClick={() =>  {setIsOpen(false)}}>
