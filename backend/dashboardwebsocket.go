@@ -76,8 +76,9 @@ func NotifyTradeEvent(myID int, theirID int, myPetID int, theirPetID int) {
 }
 
 type LeaderboardEvent struct {
-	MsgType string    `json:"msgtype"`
-	Leaders []*Player `json:"leaders"`
+	MsgType     string    `json:"msgtype"`
+	Leaders     []*Player `json:"leaders"`
+	PlayerCount int       `json:"player_count"`
 }
 
 func UpdateLeaderboard(leaderIDs []int) {
@@ -95,6 +96,11 @@ func UpdateLeaderboard(leaderIDs []int) {
 	leaderboardEvent := &LeaderboardEvent{
 		MsgType: "update-leaderboard",
 		Leaders: leaders,
+	}
+
+	err := db.QueryRow(`SELECT COUNT(*) FROM players`).Scan(&leaderboardEvent.PlayerCount)
+	if err != nil {
+		log.Printf("UpdateLeaderboard: Error getting player count: %s", err)
 	}
 
 	data, err := json.Marshal(leaderboardEvent)
