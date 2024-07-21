@@ -16,19 +16,19 @@ function Dashboard() {
 
   const onMessage = (message: any) => {
     console.log("Recieved Message:")
-    if(message.msgtype == "notify-trade"){
+    if(message.data.msgtype == "notify-trade"){
       const updated_events = JSON.parse(JSON.stringify(tradeEvents))
       // pop front if longer than 5
       if(updated_events.length > 5){
         updated_events.shift()
       }
       updated_events.push({
-        person1: message.player1,
-        person2: message.player2
+        person1: message.data.player1,
+        person2: message.data.player2
       })
       setTradeEvents(updated_events)
     }
-    console.log(message)
+    console.log(message.data)
   }
 
   const { sendJsonMessage, readyState } = useWebSocket(
