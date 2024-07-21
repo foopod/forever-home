@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 )
@@ -17,7 +18,10 @@ var ATTRIBUTE_NAMES []string = []string{
 	"eyes",
 	"mouth",
 	"accessories",
+	// please add new attribute names to end of list
 }
+
+var MAX_OPTIONS_PER_ATTRIBUTE uint64 = 63
 
 var HUMAN_NAMES []string = []string{
 	"Alex", "Avery", "Blake", "Cameron", "Casey", "Charlie", "Dakota", "Drew", "Emerson", "Finley",
@@ -34,14 +38,95 @@ var HUMAN_NAMES []string = []string{
 
 var CAT_NAMES []string = []string{
 	"Whiskerino", "Mittens", "Shadowpaws", "Luna", "Simba", "Tigress", "Mochi", "Sable", "Pixel", "Nimbus",
-    "Jinx", "Cinnamon", "Gizmo", "Pepper", "Zephyr", "Sushi", "Echo", "Waffles", "Mystique", "Pudding", "Blaze", 
-    "Neko", "Karma", "Basil", "Zelda", "Ash", "Nebula", "Figaro", "Lyric", "Sprout", "Clover", "Harley", "Frost",
-    "Coco", "Raven", "Pippin", "Indigo", "Tango", "Buttercup", "Oreo", "Cosmo", "Saffron", "Doodle", "Mimosa",
-    "Jasper", "Quasar", "Maple", "Galaxy", "Snickers", "Bubbles", "Phoenix", "Fudge", "Rascal", "Dusk", "Pixie",
-    "Taffy", "Echo", "Jewel", "Skittles", "Mango", "Topaz", "Pumpkin", "Cobalt", "Velvet", "Frostbite", "Marble",
-    "Sable", "Zenith", "Opal", "Nutmeg", "Ripple", "Slate", "Truffle", "Breeze", "Mystery", "Sorrel", "Nugget",
-    "Sterling", "Flicker", "Fawn", "Cloud", "Ziggy", "Peaches", "Vortex", "Roo", "Galaxy", "Whisper", "Dynamo",
-    "Sirius", "Lynx", "Jubilee", "Moss", "Pudding", "Starlight", "Sable", "Frost", "Glitter", "Rune",
+	"Jinx", "Cinnamon", "Gizmo", "Pepper", "Zephyr", "Sushi", "Echo", "Waffles", "Mystique", "Pudding", "Blaze",
+	"Neko", "Karma", "Basil", "Zelda", "Ash", "Nebula", "Figaro", "Lyric", "Sprout", "Clover", "Harley", "Frost",
+	"Coco", "Raven", "Pippin", "Indigo", "Tango", "Buttercup", "Oreo", "Cosmo", "Saffron", "Doodle", "Mimosa",
+	"Jasper", "Quasar", "Maple", "Galaxy", "Snickers", "Bubbles", "Phoenix", "Fudge", "Rascal", "Dusk", "Pixie",
+	"Taffy", "Echo", "Jewel", "Skittles", "Mango", "Topaz", "Pumpkin", "Cobalt", "Velvet", "Frostbite", "Marble",
+	"Sable", "Zenith", "Opal", "Nutmeg", "Ripple", "Slate", "Truffle", "Breeze", "Mystery", "Sorrel", "Nugget",
+	"Sterling", "Flicker", "Fawn", "Cloud", "Ziggy", "Peaches", "Vortex", "Roo", "Galaxy", "Whisper", "Dynamo",
+	"Sirius", "Lynx", "Jubilee", "Moss", "Pudding", "Starlight", "Sable", "Frost", "Glitter", "Rune",
+}
+
+func bitsRequiredForNumber(n uint64) uint64 {
+	var bits uint64
+	for bits = 0; bits < 64; bits++ {
+		if (1 << bits) > n {
+			return bits + 1
+		}
+	}
+	// will never get here for 64 bit number
+	return 64
+}
+
+func GenerateAttrSeedSpaceForGame() []uint64 {
+	var optionCounts []uint64
+	var optionCountsIdx []uint64
+
+	var seedSpace []uint64
+
+	reqOptionBits := bitsRequiredForNumber(MAX_OPTIONS_PER_ATTRIBUTE + 1)
+
+	for _, attrName := range ATTRIBUTE_NAMES {
+		var neededOptions = uint64(len(ALL_ATTRIBUTES["human"][attrName]))
+		if neededOptions > MAX_OPTIONS_PER_ATTRIBUTE {
+			log.Fatalf("need less than %d options for attribute %s, got %d", MAX_OPTIONS_PER_ATTRIBUTE, attrName, neededOptions)
+		}
+		optionCounts = append(optionCounts, neededOptions)
+		optionCountsIdx = append(optionCountsIdx, 0)
+	}
+
+	if 64/reqOptionBits < uint64(len(optionCounts)) {
+		log.Fatalf("can have max %d attributes, got %d", 64/reqOptionBits, len(optionCounts))
+	}
+
+	for {
+		var seed uint64 = 0
+		for attrIdx := range optionCountsIdx {
+			seed |= (optionCountsIdx[attrIdx] + 1) << (uint64(attrIdx) * reqOptionBits)
+		}
+		seedSpace = append(seedSpace, seed)
+		done := incrementIndexArray(optionCountsIdx, optionCounts)
+		if done {
+			break
+		}
+	}
+
+	rand.Shuffle(len(seedSpace), func(i, j int) {
+		seedSpace[i], seedSpace[j] = seedSpace[j], seedSpace[i]
+	})
+	return seedSpace
+}
+
+func incrementIndexArray(optionCountsIdx []uint64, optionCounts []uint64) bool {
+	totalAttrs := len(optionCounts)
+	for attrIdx := range optionCountsIdx {
+		optionCountsIdx[attrIdx] += 1
+		if optionCountsIdx[attrIdx] >= optionCounts[attrIdx] {
+			if attrIdx >= totalAttrs-1 {
+				return true
+			}
+			optionCountsIdx[attrIdx] = 0
+			continue
+		}
+		break
+	}
+	return false
+}
+
+func ConvertAttrSeedToAttributes(attrSeed uint64) (map[string]string, error) {
+	var result = make(map[string]string)
+	reqOptionBits := bitsRequiredForNumber(MAX_OPTIONS_PER_ATTRIBUTE + 1)
+	maskOptionBits := (uint64(1) << (reqOptionBits - 1)) - 1
+	for attrIdx, attrName := range ATTRIBUTE_NAMES {
+		attrOptions := ALL_ATTRIBUTES["human"][attrName]
+		value := ((attrSeed >> (attrIdx * int(reqOptionBits))) & maskOptionBits) - 1
+		if value >= uint64(len(attrOptions)) {
+			return nil, fmt.Errorf("invalid attr seed %d for attr %s (value=%d, count=%d)", attrSeed, attrName, value, len(attrOptions))
+		}
+		result[attrName] = attrOptions[value]
+	}
+	return result, nil
 }
 
 var ALL_ATTRIBUTES = CollectAttributes(getEnv("IMAGE_DIR", ATTRIBUTE_BASE_DIR))
@@ -127,6 +212,8 @@ func CollectAttributesForSpecies(baseDir string, attributeNames []string) map[st
 			}
 			outputAttributes[attributeName] = append(outputAttributes[attributeName], strings.TrimSuffix(filename, ext))
 		}
+		// important for seed
+		sort.Strings(outputAttributes[attributeName])
 	}
 
 	return outputAttributes
@@ -145,12 +232,28 @@ func Generate(species string) map[string]string {
 
 	return map[string]string{
 		"species":   species,
-		"name": name,
+		"name":      name,
 		"base":      attr["base"][rand.Intn(len(attr["base"]))],
 		"eyes":      attr["eyes"][rand.Intn(len(attr["eyes"]))],
 		"mouth":     attr["mouth"][rand.Intn(len(attr["mouth"]))],
 		"accessory": attr["accessories"][rand.Intn(len(attr["accessories"]))],
 	}
+}
+
+func GenerateForSeed(seed uint64, species string) map[string]string {
+	attrs, err := ConvertAttrSeedToAttributes(seed)
+	if err != nil {
+		log.Printf("error while trying to generate attributes for seed %d: %s", seed, err)
+		log.Printf("reverting to default generation")
+		return Generate(species)
+	}
+
+	attrs["name"] = CAT_NAMES[rand.Intn(len(CAT_NAMES))]
+	if species == "human" {
+		attrs["name"] = HUMAN_NAMES[rand.Intn(len(HUMAN_NAMES))]
+	}
+
+	return attrs
 }
 
 func getEnv(key, fallback string) string {

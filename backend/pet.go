@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"math/rand"
+	"sync"
 
 	"github.com/foopod/forever-home/backend/attributes"
 )
@@ -39,8 +40,38 @@ func GetPetByID(id int) (*Pet, error) {
 	return &p, nil
 }
 
-func GeneratePetForPlayer(player Player) (*Pet, error) {
+var lastSeed uint64
+var lastSeedMutex sync.Mutex
+
+func GetNextPetSeed(newPlayerSeed uint64) uint64 {
+	lastSeedMutex.Lock()
+	defer lastSeedMutex.Unlock()
+	var seed uint64
+
+	if lastSeed != 0 {
+		seed = lastSeed
+	} else {
+		seed = GetNextAvailableSeed()
+	}
+	lastSeed = newPlayerSeed // store new player seed
+	return seed
+}
+
+func GeneratePetForPlayerWithSeed(playerSeed uint64, player Player) (*Pet, error) {
 	//var out Pet
+	seed := GetNextPetSeed(playerSeed)
+	if seed == 0 {
+		return GeneratePetForPlayer(player)
+	}
+	log.Println("Generating pet using seed")
+	pet := Pet{
+		ID:         int(seed),
+		Attributes: attributes.GenerateForSeed(seed, "cat"),
+	}
+	return &pet, nil
+}
+
+func GeneratePetForPlayer(player Player) (*Pet, error) {
 
 	log.Println("Generating pet")
 	pet := Pet{

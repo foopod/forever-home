@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"math/rand/v2"
 
 	"github.com/foopod/forever-home/backend/attributes"
 	"github.com/gofiber/fiber/v2"
@@ -19,9 +18,10 @@ type JoinResponse struct {
 }
 
 func HandleJoin(c *fiber.Ctx) error {
+	seed := GetNextAvailableSeed()
 	player := Player{
-		ID:         rand.IntN(MAX_ID),
-		Attributes: attributes.Generate("human"),
+		ID:         int(seed), // THIS WOULD BE BETTER IF uint64
+		Attributes: attributes.GenerateForSeed(seed, "human"),
 	}
 
 	pet, err := GeneratePetForPlayer(player)
