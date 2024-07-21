@@ -96,10 +96,10 @@ func DeleteInactivePlayers() {
 
 		if len(deleteIDs) > 0 {
 			for i := 0; i < len(deleteIDs); i += 1 {
-				_, err := db.Exec("DELETE FROM players WHERE id = ?", deleteIDs[i])
+				_, err := db.Exec("DELETE FROM players WHERE id = ? and joined < datetime('now', '-10 minutes')", deleteIDs[i])
 				if err != nil {
 					log.Println("Error deleting inactive players", err)
-					continue
+					// Don't care about this error
 				}
 
 				SendToPlayer(deleteIDs[i], []byte(`refresh`))
@@ -109,6 +109,6 @@ func DeleteInactivePlayers() {
 
 		log.Println("Cleaned up", deleted, " inactive players")
 
-		time.Sleep(5 * time.Minute)
+		time.Sleep(1 * time.Minute)
 	}
 }
