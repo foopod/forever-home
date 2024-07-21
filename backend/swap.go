@@ -36,15 +36,42 @@ func HandleSwap(c *fiber.Ctx) error {
 		return err
 	}
 
+	myNewPet, err := GetPetByID(theirPetID)
+	if err != nil {
+		log.Println("Error getting their pet ", err)
+		return err
+	}
+
+	theirNewPet, err := GetPetByID(myPetID)
+	if err != nil {
+		log.Println("Error getting my pet ", err)
+		return err
+	}
+
+	me, err := GetPlayerByID(myID)
+	if err != nil {
+		log.Println("Error getting me ", err)
+		return err
+	}
+
+	them, err := GetPlayerByID(theirID)
+	if err != nil {
+		log.Println("Error getting them ", err)
+		return err
+	}
+
+	myNewPetCompatibility := ComputePlayerPetCompatibility(me, myNewPet)
+	theirNewPetCompatibility := ComputePlayerPetCompatibility(them, theirNewPet)
+
 	// Update MY pet ID to THEIRS
-	_, err = db.Exec("UPDATE players SET pet_id = ? WHERE id = ?", theirPetID, myID)
+	_, err = db.Exec("UPDATE players SET pet_id = ?, compatibility = ? WHERE id = ?", myNewPet.ID, myNewPetCompatibility, myID)
 	if err != nil {
 		log.Println("Error updating my petID ", err)
 		return err
 	}
 
 	// Update THEIR pet ID to MINE
-	_, err = db.Exec("UPDATE players SET pet_id = ? WHERE id = ?", myPetID, theirID)
+	_, err = db.Exec("UPDATE players SET pet_id = ?, compatibility = ? WHERE id = ?", theirNewPet.ID, theirNewPetCompatibility, theirID)
 	if err != nil {
 		log.Println("Error updating their petID ", err)
 		return err

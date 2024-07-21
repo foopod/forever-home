@@ -29,6 +29,7 @@ func init() {
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS players (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		pet_id INTEGER,
+		compatibility FLOAT,
 		attributes JSONB,
 		joined DATETIME DEFAULT CURRENT_TIMESTAMP);
 		CREATE TABLE IF NOT EXISTS pets (

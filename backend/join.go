@@ -42,7 +42,7 @@ func HandleJoin(c *fiber.Ctx) error {
 		return err
 	}
 
-	_, err = db.Exec(`INSERT INTO players (id, pet_id, attributes) VALUES (?, ?, ?)`, player.ID, player.Pet.ID, bruh)
+	_, err = db.Exec(`INSERT INTO players (id, pet_id, compatibility, attributes) VALUES (?, ?, ?, ?)`, player.ID, player.Pet.ID, player.PetCompatibility, bruh)
 	if err != nil {
 		return err
 	}
