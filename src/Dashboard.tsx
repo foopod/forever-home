@@ -21,9 +21,9 @@ function Dashboard() {
       const updated_events = JSON.parse(JSON.stringify(tradeEvents))
       // pop front if longer than 5
       if(updated_events.length > 5){
-        updated_events.shift()
+        updated_events.pop()
       }
-      updated_events.push({
+      updated_events.unshift({
         person1: data.player1,
         person2: data.player2
       })

@@ -6,7 +6,6 @@ interface Props {
 }
 
 const LeaderboardPlayer: React.FC<Props> = ({player, position}) => {
-    console.log(player)
     return(
         <div className="border rounded flex gap-2 px-3 py-2  bg-white drop-shadow-md">
             <span className="flex-none font-extrabold text-4xl w-12">#{position}</span>
