@@ -13,6 +13,7 @@ function Dashboard() {
   const WS_URL = `${WS_ENDPOINT}/dashboard/ws/`
   const [tradeEvents, setTradeEvents] = useState([])
   const [leaders, setLeaders] = useState([])
+  const [playerCount, setPlayerCount] = useState([])
 
   const onMessage = (message: any) => {
     const data = JSON.parse(message.data)
@@ -29,6 +30,7 @@ function Dashboard() {
       setTradeEvents(updated_events)
     } else if(data.msgtype == "update-leaderboard"){
       setLeaders(data.leaders)
+      setPlayerCount(data.player_count)
     }
   }
 
@@ -83,17 +85,17 @@ function Dashboard() {
         <div className="w-full flex justify-between items-end">
           <div className="text-4xl">
             <div className="flex gap-4">
-              <span className="w-16 font-extrabold">52</span>
+              <span className="w-16 font-extrabold">{playerCount}</span>
               <span>players</span>
             </div>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <span className="w-16 font-extrabold">75%</span>
               <span>total harmony</span>
             </div>
             <div className="flex gap-4">
               <span className="w-16 font-extrabold">75%</span>
               <span>total helpfulness</span>
-            </div>
+            </div> */}
           </div>
           <div className="space-y-2">
             <span className="text-4xl font-extrabold">Join here:</span>
