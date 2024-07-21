@@ -15,7 +15,7 @@ type Player struct {
 }
 
 func GetPlayerByID(id int) (*Player, error) {
-	log.Println("Getting player by ID", id)
+	//log.Println("Getting player by ID", id)
 	var p Player
 	var petID int
 
@@ -50,6 +50,6 @@ func GetPlayerByID(id int) (*Player, error) {
 		p.TradeCount = 0
 	}
 
-	log.Printf("Player found %d, %#v", id, p)
+	//log.Printf("Player found %d, %#v", id, p)
 	return &p, nil
 }
