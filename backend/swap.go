@@ -63,6 +63,7 @@ func HandleSwap(c *fiber.Ctx) error {
 	}
 
 	log.Println("Swapped", myID, "and", theirID)
+	NotifyTradeEvent(myID, theirID, myPetID, theirPetID)
 
 	return HandleGetState(c)
 	//return c.SendString("OK")
