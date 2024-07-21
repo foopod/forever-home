@@ -101,6 +101,8 @@ func DeleteInactivePlayers() {
 					log.Println("Error deleting inactive players", err)
 					continue
 				}
+
+				SendToPlayer(deleteIDs[i], []byte(`refresh`))
 			}
 			deleted++
 		}
