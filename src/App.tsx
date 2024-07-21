@@ -7,6 +7,7 @@ import Trade from './components/Trade'
 import { GameContext } from './context/GameContext'
 import Score from './components/dashboard/Score'
 import { WS_ENDPOINT } from './environment'
+import { Link } from 'react-router-dom'
 
 function App() {
   const [tradeOpen, setTradeOpen] = useState(false)
@@ -69,6 +70,7 @@ function App() {
                 <p className='text-center bg-white text-xl -mt-2 pb-2'><code>PET NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.pet.attributes["name"]}</span></p>
               </div>
               {/* <button className='text-slate-300'>Need Help?</button> */}
+              <Link className='text-slate-300' to='/dashboard'>Dashboard</Link>
             </div>
           }
         </>
