@@ -103,8 +103,10 @@ func DeleteInactivePlayers() {
 				}
 
 				SendToPlayer(deleteIDs[i], []byte(`refresh`))
+				log.Println("Deleted inactive player", deleteIDs[i])
+				deleted++
 			}
-			deleted++
+
 		}
 
 		log.Println("Cleaned up", deleted, " inactive players", len(deleteIDs))
