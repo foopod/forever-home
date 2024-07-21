@@ -19,7 +19,7 @@ const Join = () => {
                     <ul>
                         <li>Find the pet that best matches your client</li>
                         <li>Help as many pets as you can find their forever home!</li>
-                        <li>A 100% match might look like this..</li>
+                        <li>Here are some examples of perfect matches...</li>
                     </ul>
                 </div>
                 <div className="flex mx-5">
@@ -35,6 +35,22 @@ const Join = () => {
                         base: "base3a",
                         eyes: "eyes1",
                         mouth: "mouth1",
+                        species: "human"
+                    }}/>
+                </div>
+                <div className="flex mx-5">
+                    <LayeredImage attributes={{
+                        accessory: "accessories1",
+                        base: "base1c",
+                        eyes: "eyes5",
+                        mouth: "mouth2",
+                        species: "cat"
+                    }}/>
+                    <LayeredImage attributes={{
+                        accessory: "accessories1",
+                        base: "base1c",
+                        eyes: "eyes5",
+                        mouth: "mouth2",
                         species: "human"
                     }}/>
                 </div>
