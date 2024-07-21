@@ -6,7 +6,7 @@ import './App.css'
 // import { PetImage, generatePetImage } from './data/layers'
 import LeaderboardPlayer from './components/dashboard/LeaderboardPlayer'
 import TradeEvent from './components/dashboard/TradeEvent'
-import { WS_ENDPOINT } from './environment'
+import { WS_ENDPOINT, API_ENDPOINT } from './environment'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 function Dashboard() {
@@ -87,7 +87,7 @@ function Dashboard() {
             <QRCode
                 size={256}
                 className="max-md:h-max max-md:w-full"
-                value={"http://127.0.0.1:3000/"}
+                value={API_ENDPOINT}
                 viewBox={`0 0 256 256`}
             />
           </div>
