@@ -62,7 +62,7 @@ function Dashboard() {
       <h1 className='mb-4 text-4xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl font-exo'>Forever Home</h1>
       <div className="flex flex-col gap-8">
         <div className="flex w-full gap-8">
-          <div className="w-3/5">
+          <div className="w-2/5">
             <h2 className='mb-4 text-2xl font-extrabold text-gray-900 md:text-3xl lg:text-4xl font-exo'>Leaderboard</h2>
             <div className="flex flex-col gap-2">
               {
@@ -73,25 +73,16 @@ function Dashboard() {
             </div>
           </div>
           <div className="w-2/5">
-          <h2 className='mb-4 text-2xl font-extrabold text-gray-900 md:text-3xl lg:text-4xl font-exo'>Last Trades</h2>
-            <div className="flex flex-col gap-2">
-              {
-                tradeEvents.map(function(trade){
-                  return <TradeEvent trade={trade} key={JSON.stringify(trade)} />
-                })
-              }
+            <h2 className='mb-4 text-2xl font-extrabold text-gray-900 md:text-3xl lg:text-4xl font-exo'>Last Trades</h2>
+              <div className="flex flex-col gap-2">
+                {
+                  tradeEvents.map(function(trade){
+                    return <TradeEvent trade={trade} key={JSON.stringify(trade)} />
+                  })
+                }
+              </div>
             </div>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-between items-end">
-          <div className="text-4xl">
-            <div className="flex gap-4">
-              <span className="w-16 font-extrabold">{playerCount}</span>
-              <span>players</span>
-            </div>
-          </div>
-          <div className="space-y-2">
+          <div className="w-1/5">
             <span className="text-4xl font-extrabold">Join here:</span>
             <QRCode
                 size={256}
@@ -100,7 +91,15 @@ function Dashboard() {
                 viewBox={`0 0 256 256`}
             />
           </div>
+          </div>
 
+        <div className="w-full flex justify-between items-end">
+          <div className="text-4xl">
+            <div className="flex gap-4">
+              <span className="w-16 font-extrabold">{playerCount}</span>
+              <span>players</span>
+            </div>
+          </div>
         </div>
       </div>
     </main>
