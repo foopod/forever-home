@@ -109,6 +109,6 @@ func DeleteInactivePlayers() {
 
 		log.Println("Cleaned up", deleted, " inactive players", len(deleteIDs))
 
-		time.Sleep(1 * time.Minute)
+		time.Sleep(10 * time.Second)
 	}
 }
