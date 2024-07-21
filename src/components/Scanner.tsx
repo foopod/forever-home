@@ -1,5 +1,5 @@
 import QrScanner from 'qr-scanner';
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
 
@@ -12,6 +12,7 @@ interface Props {
 const Scanner: React.FC<Props> = ({ isActive, setIsActive, handleScan }) => {
     const scanner = useRef<QrScanner>();
     const videoEl = useRef<HTMLVideoElement>(null);
+    const [scanResult, setScanResult] = useState("")
 
     useEffect(() => {
       const close = () => { setIsActive(false)}
@@ -22,14 +23,24 @@ const Scanner: React.FC<Props> = ({ isActive, setIsActive, handleScan }) => {
     }, [])
 
     const onScanSuccess = (result: QrScanner.ScanResult) => {
-      console.log(result)
-      handleScan(result?.data);
-        setIsActive(false)
-  };
+      setScanResult(result?.data)
+    };
     
     const onScanFail = (err: string | Error) => {
         console.log(err);
     };
+
+    useEffect(() => {
+      const waitForScan = async() => {
+        await handleScan(scanResult);
+        setScanResult('')
+        setIsActive(false)
+      }
+
+      if(scanResult){
+        waitForScan()
+      }
+    }, [scanResult])
 
     useEffect(() => {
         if (videoEl?.current && !scanner.current) {
