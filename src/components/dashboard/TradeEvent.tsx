@@ -10,12 +10,12 @@ const TradeEvent: React.FC<Props> = ({trade}) => {
         <div className="border rounded flex justify-between p-2 px-3 py-2  bg-white drop-shadow-md">
             <div className="flex">
                 <div className="flex-auto w-1/2">
-                    <span className="text-2xl">{trade.person1.name}</span>
+                    <span className="text-2xl">{trade.person1.attributes["name"]}</span>
                     <LayeredImage attributes={trade.person1.attributes} />
                 </div>
                 <div className="flex-auto w-1/2">
-                    <span className="text-2xl">{trade.person1.pet1.name}</span>
-                    <LayeredImage attributes={trade.person1.pet1.attributes} />
+                    <span className="text-2xl">{trade.person1.pet.attributes["name"]}</span>
+                    <LayeredImage attributes={trade.person1.pet.attributes} />
                 </div>
             </div>
             <div className="flex-grow items-center flex px-4">
@@ -24,11 +24,11 @@ const TradeEvent: React.FC<Props> = ({trade}) => {
             </div>
             <div className="flex">
                 <div className="flex-auto w-1/2">
-                    <span className="text-2xl">{trade.person2.pet2.name}</span>
-                    <LayeredImage attributes={trade.person2.pet2.attributes} />
+                    <span className="text-2xl">{trade.person2.pet.attributes["name"]}</span>
+                    <LayeredImage attributes={trade.person2.pet.attributes} />
                 </div>
                 <div className="flex-auto w-1/2">
-                    <span className="text-2xl">{trade.person2.name}</span>
+                    <span className="text-2xl">{trade.person2.attributes["name"]}</span>
                     <LayeredImage attributes={trade.person2.attributes} />
                 </div>
             </div>
