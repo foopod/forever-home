@@ -23,11 +23,11 @@ const LeaderboardPlayer: React.FC<Props> = ({player, position}) => {
                     <span>Compatibility</span>
                     <span className="w-10">{Math.round(player.pet_compatibility * 100)}%</span>
                 </div>
-                {/* <div className="flex justify-end">
-                    <span>Helpfulness</span>
-                    <span className="w-10">99%</span>
-                </div>
                 <div className="flex justify-end">
+                    <span>Trades</span>
+                    <span className="w-10">{player.trade_count}</span>
+                </div>
+                {/* <div className="flex justify-end">
                     <span>Trades</span>
                     <span className="w-10">10x</span>
                 </div> */}

@@ -29,8 +29,10 @@ function Dashboard() {
       })
       setTradeEvents(updated_events)
     } else if(data.msgtype == "update-leaderboard"){
-      setLeaders(data.leaders)
-      setPlayerCount(data.player_count)
+      if(data.leaders){
+        setLeaders(data.leaders)
+        setPlayerCount(data.player_count)
+      }
     }
   }
 
