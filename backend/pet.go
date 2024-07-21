@@ -35,7 +35,7 @@ func GetPetByID(id int) (*Pet, error) {
 		return nil, err
 	}
 
-	log.Printf("Pet found %d, %#v", id, p)
+	//log.Printf("Pet found %d, %#v", id, p)
 	return &p, nil
 }
 

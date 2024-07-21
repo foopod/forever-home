@@ -31,7 +31,7 @@ func GetPlayerByID(id int) (*Player, error) {
 		log.Printf("Error unmarshalling attributes: %s", err)
 		return nil, err
 	}
-	log.Println("Getting pet by ID", petID)
+	//	log.Println("Getting pet by ID", petID)
 	pet, err := GetPetByID(petID)
 	if err != nil {
 		log.Println("Error getting pet by id", err)
@@ -40,6 +40,6 @@ func GetPlayerByID(id int) (*Player, error) {
 	p.Pet = *pet
 	p.PetCompatibility = ComputePlayerPetCompatibility(&p, &p.Pet)
 
-	log.Printf("Player found %d, %#v", id, p)
+	//log.Printf("Player found %d, %#v", id, p)
 	return &p, nil
 }
