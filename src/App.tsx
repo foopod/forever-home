@@ -61,16 +61,16 @@ function App() {
                 <Score score={currentState.player.pet_compatibility} />
                 <button onClick={() => {setTradeOpen(true)}} className='bg-slate-200 px-4 py-2 rounded-md mx-2'>Swap Pets</button>
               </div>
-              <div className='m-2 drop-shadow-md my-2'>
+              <div className='m-2 drop-shadow-md my-2 mx-8'>
                 <LayeredImage attributes={currentState.player.attributes} />
                 <p className='text-center bg-white text-xl -mt-2 pb-2 '><code>CLIENT NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.attributes["name"]}</span></p>
               </div>
-              <div className='m-2 drop-shadow-md my-2'>
+              <div className='m-2 drop-shadow-md my-2 mx-8'>
                 <LayeredImage attributes={currentState.player.pet.attributes} />
                 <p className='text-center bg-white text-xl -mt-2 pb-2'><code>PET NAME:</code><span className='font-grape text-4xl px-2'>{currentState.player.pet.attributes["name"]}</span></p>
               </div>
               {/* <button className='text-slate-300'>Need Help?</button> */}
-              <Link className='text-slate-300' to='/dashboard'>Dashboard</Link>
+              <Link className='text-slate-300 fixed bottom-2' to='/dashboard'>Dashboard</Link>
             </div>
           }
         </>
