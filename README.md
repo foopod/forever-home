@@ -1,27 +1,20 @@
 # Forever Home
 
+Welcome to the Forever Home Cat Adoption Centre!  We have many cats looking for a new home, and just as many people looking for companionship!  You will be assigned a client; your job is to search out the perfect match.  So gather your friends and get swapping pets.  Can you coordinate a perfect match?
 
-## Client
+Ideally played by groups of 10+ people in person
 
-- *Join Game*
-  - Connect via websocket
-  - Get pet and owner, and store locally
-  - Render pet, owner and stats (with matching details highlighted)
-- *Initiate Trade*
-  - User clicks trade button
-  - Given two options - Scan or View Code
-    - Scan opens full-screen scanner
-    - View Code opens full-screen code
-  - On scan call websocket to trade
+# Credits
 
+Anne
 
-## Server
+Rohan
 
-- *Join Game*
-  - Generate Pet and Owner
-  - Calculate Match Rating
-  - Store Pet, Owner and match in DB
-- *Initiate Trade*
-  - Given two ids, swap pets for users
-  - Update match rating
-  - Notify users of update
+John
+
+Jono
+https://foopod.itch.io
+
+# Licenses
+
+All images in the `public` directory are the property of Anne and used under [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en).
